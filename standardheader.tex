@@ -1,0 +1,87 @@
+\usepackage[l2tabu, orthodox]{nag}
+
+
+% % % % % % % % % %
+% MATH
+% % % % % % % % % %
+\usepackage[fleqn]{amsmath}	% fleqn for left alignment of math blocks (as in classicthesis)
+\usepackage{amssymb}
+\newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+
+% % % % % % % % % %
+% FONTS
+% % % % % % % % % %
+\usepackage[osf,sc]{mathpazo} % Palatino as the main font
+\linespread{1.05}\selectfont % Palatino needs some extra spacing, here 5% extra
+%\usepackage[scaled=0.85]{beramono}
+\usepackage[euler-digits]{eulervm} % nicer math font
+
+
+% % % % % % % % % %
+% FLOATS, FIGURAES, AND TABLES
+% % % % % % % % % %
+\usepackage{graphicx} 		% Required for including images
+\usepackage{caption}
+\captionsetup{font=small} 	% format=hang,
+\usepackage{subfig}
+\usepackage{tabularx}
+\setlength{\extrarowheight}{3pt} % increase table row height
+\usepackage{pbox} 			% for linebreaking in cells
+\usepackage{multicol, multirow}
+\usepackage{tikz}
+\usetikzlibrary{fit,arrows,shapes}
+\usetikzlibrary{decorations.pathreplacing}
+
+
+
+% % % % % % % % % %
+% BIBLIOGRAPY
+% % % % % % % % % %
+
+
+\usepackage[
+	%backend=biber, %instead of bibtex
+	backend=bibtex8,bibencoding=ascii,%
+	language=auto,%
+	style=numeric-comp,%
+	%style=authoryear-comp, % Author 1999, 2010
+	%bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
+	sorting=nyt, % name, year, title
+	maxbibnames=10, % default: 3, et al.
+	%backref=true,%
+	natbib=true % natbib compatibility mode (\citep and \citet still work)
+]{biblatex}
+\usepackage{biblatex}
+% alternative: \usepackage{natbib}
+
+
+% % % % % % % % % %
+% MISC
+% % % % % % % % % %
+\usepackage
+[
+%disable
+]{todonotes}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage[english]{babel} % hyphenation, special characters, ...
+\usepackage{csquotes}		% recommended with babel for quotes
+\usepackage{hyperref}       % hyperlinks
+\usepackage{cleveref}		% provides \cref for nice in-document refs
+\usepackage{url}            % simple URL typesetting
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage
+[
+activate={true,nocompatibility}, % activate protrusion and expansion
+final,						% enable microtype; use "draft" to disable
+tracking=true,
+kerning=true,
+spacing=true,
+factor=1100,				% add 10% to the protrusion amount (default: 1000)
+stretch=10,					% reduce stretchability (default: 20)
+shrink=10					% reduce shrinkability (default: 20)
+]
+{microtype}
+\usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
