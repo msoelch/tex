@@ -72,7 +72,9 @@
 \newcommand{\IfNoValueOrEmptyTF}[3] {\IfNoValueTF{#1}{#2}{\def\@tempa{#1}\ifx\@tempa\@empty#2\else#3\fi}}
 \makeatother 
 
-\newcommand{\MkProbDist}[1]{\expandafter\NewDocumentCommand\csname #1\endcsname{G{}G{}G{}}{\ensuremath{#1\IfNoValueOrEmptyTF{##3}{}{_{##3}}\IfNoValueOrEmptyTF{##1}{}{\mleft(##1 \IfNoValueOrEmptyTF{##2}{}{\mid ##2}\mright)}}}}
+\newcommand{\MkProbDist}[1]{
+\expandafter\ProvideDocumentCommand\csname #1\endcsname{G{}G{}G{}}{}
+\expandafter\RenewDocumentCommand\csname #1\endcsname{G{}G{}G{}}{\ensuremath{#1\IfNoValueOrEmptyTF{##3}{}{_{##3}}\IfNoValueOrEmptyTF{##1}{}{\mleft(##1 \IfNoValueOrEmptyTF{##2}{}{\mid ##2}\mright)}}}}
 \ExplSyntaxOn
 \NewDocumentCommand{\probdists}{ m }{\clist_map_inline:nn { #1 } { \MkProbDist{##1} }}
 \ExplSyntaxOff
