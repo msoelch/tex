@@ -1,0 +1,204 @@
+\NeedsTeXFormat{LaTeX2e}%[2015/01/01] % fixed via latexrelease package, see below
+\ProvidesPackage{mlmacros}[2017/02/23 custom frequently used commands]
+
+\usepackage{xparse} % necessary for hacking overloaded commands and iterating overlists
+\usepackage{xspace}
+\usepackage{mleftright} % for nicer spacing before \left in the presence of indices
+\usepackage{amsfonts} % for \mathbb
+\usepackage{dsfont} % for mathbb style indicator function 1
+\usepackage{soul} % provides \texthl
+\usepackage{todonotes} % define advanced macros based on todonotes
+\usepackage{xcolor}
+\definecolor{customblue}{RGB}{0,101,189}
+
+% Convenient macros with correct spacing
+\makeatletter
+\newcommand*{\ie}{
+	\@ifnextchar{,}
+	{i.\,e.}
+	{i.\,e.,\@\xspace}
+}
+\newcommand*{\Ie}{
+	\@ifnextchar{,}
+	{I.\,e.}
+	{I.\,e.,\@\xspace}
+}
+\newcommand*{\eg}{
+	\@ifnextchar{,}
+	{e.\,g.}
+	{e.\,g.,\@\xspace}
+}
+\newcommand*{\Eg}{
+	\@ifnextchar{,}
+	{E.\,g.}
+	{E.\,g.,\@\xspace}
+}
+\newcommand{\wrt}{w.\,r.\,t.\@\xspace}
+\newcommand*{\etc}{
+    \@ifnextchar{.}
+        {etc}
+        {etc.\@\xspace}
+}
+\makeatother
+
+
+% Math macros
+\newcommand{\NN}{\ensuremath{\mathbb{N}}}
+\newcommand{\RR}{\ensuremath{\mathbb{R}}}
+\newcommand{\PP}{\ensuremath{\mathbb{P}}}
+\newcommand{\EE}{\ensuremath{\mathbb{E}}}
+\newcommand{\ind}{\ensuremath{\mathds{1}}}
+
+\newcommand{\mcX}{\ensuremath{\mathcal{X}}}
+\newcommand{\mcU}{\ensuremath{\mathcal{U}}}
+\newcommand{\mcZ}{\ensuremath{\mathcal{Z}}}
+\newcommand{\mcD}{\ensuremath{\mathcal{D}}}
+
+\newcommand{\data}{\mcD}
+
+\DeclareDocumentCommand{\shallbe}{}{\;{\overset{!}=}\;}
+\DeclareDocumentCommand{\dint}{}{\,\mathrm d}
+\DeclareDocumentCommand{\abs}{m}{{\left\lvert#1\right\rvert}}
+\DeclareDocumentCommand{\set}{m}{{\left\{#1\right\}}}
+\DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
+\DeclareDocumentCommand{\gauss}{m}{{\ensuremath{\mathcal{N}\mleft(#1\mright)}}}
+\DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\mid\mid#2\mright)}}
+\newcommand{\loss}[2][]{\ensuremath{\mathcal{L}_{#1}\mleft(#2\mright)}}
+\DeclareDocumentCommand{\cost}{om}{\ensuremath{\mathcal{C}}\IfValueTF{#1}
+	{_{#1}}
+	{}
+	\mleft(#2\mright)}
+
+
+
+
+
+% iterate over zip of two lists
+% original code http://tex.stackexchange.com/questions/12187/iterating-through-two-lists
+\usepackage{xstring}
+\usepackage{etoolbox}
+
+\def\forlistlooptwo#1#2#3{%
+    \ifboolexpr{test{\IfSubStr{#2}{,}} and test{\IfSubStr{#3}{,}}}{%
+        % Evaluate first pair and call back with reduced lists if there are at least two elements in each list..
+        \forlistlooptwohelper{#1}#2;#3;%
+    }{%
+        \ifboolexpr{test{\notblank{#2}} and test{\notblank{#3}}}{%
+            % Evaluate last pair, if there is one element in each list.
+            #1{#2}{#3}%
+        }{}%
+    }%
+}
+\def\forlistlooptwohelper#1#2,#3;#4,#5;{%
+    % Call the handler with the first pair as the two arguments.
+    #1{#2}{#4}%
+    % Call the loop macro again with the lists reduced by the first pair.
+    \forlistlooptwo{#1}{#3}{#5}%
+}
+
+
+
+% custom bold math symbols for both Latin and Greek letters
+\newcommand{\custombold}[1]{\ifcat\noexpand#1\relax
+                        \boldsymbol{#1}
+                      \else
+                        \mathbf{#1}
+                      \fi}
+
+% add macros for time indices and include bold versions for vectors/matrices
+\newcommand{\Mkt}[2]{\expandafter\def\csname #1t\endcsname{\ensuremath{#2_t}}}
+\newcommand{\MkT}[2]{\expandafter\def\csname #1T\endcsname{\ensuremath{#2_T}}}
+\newcommand{\Mkts}[2]{\expandafter\def\csname #1ts\endcsname{\ensuremath{#2_{1:t}}}}
+\newcommand{\MkTs}[2]{\expandafter\def\csname #1Ts\endcsname{\ensuremath{#2_{1:T}}}}
+
+\newcommand{\MkVec}[2]{\expandafter\def\csname b#1\endcsname{\ensuremath{\custombold{#2}}}}
+\newcommand{\MktVec}[2]{\expandafter\def\csname b#1t\endcsname{\ensuremath{\custombold{#2}_t}}}
+\newcommand{\MkTVec}[2]{\expandafter\def\csname b#1T\endcsname{\ensuremath{\custombold{#2}_T}}}
+\newcommand{\MktsVec}[2]{\expandafter\def\csname b#1ts\endcsname{\ensuremath{\custombold{#2}_{1:t}}}}
+\newcommand{\MkTsVec}[2]{\expandafter\def\csname b#1Ts\endcsname{\ensuremath{\custombold{#2}_{1:T}}}}
+
+\newcommand{\varmacros}[2]{\Mkt{#1}{#2} \MkT{#1}{#2} \Mkts{#1}{#2} \MkTs{#1}{#2} \MkVec{#1}{#2} \MktVec{#1}{#2} \MkTVec{#1}{#2} \MktsVec{#1}{#2} \MkTsVec{#1}{#2}}
+
+% \variables
+% loop over list and create respective commands
+% can be given optional arguments if escaped characters are to be used
+% e.g., \variables{a}--> \ba vs. \variables[m,a]{\mu, a} --> \bm, \ba
+\DeclareDocumentCommand{\variables}{om}{\IfValueTF{#1}
+                                        {\forlistlooptwo{\varmacros}{#1}{#2}}
+                                        {\forlistlooptwo{\varmacros}{#2}{#2}}
+                                     }
+
+
+% \probdists
+% dynamically create overloaded command for probability distributions
+% mandatory argument is the argument of the distribution, e.g.,
+% \MkProbDist{p} implies \p{x}
+% first optional argument is a conditional, second optional argument parametrizes the distribution as a subscript
+
+% define if statement that defaults to false even when the argument is just empty
+% this way, the overloaded function may be used with the third argument only with a different layout (e.g., if no argument is supplied, no brackets are needed)
+\makeatletter 
+\newcommand{\IfNoValueOrEmptyTF}[3] {\IfNoValueTF{#1}{#2}{\def\@tempa{#1}\ifx\@tempa\@empty#2\else#3\fi}}
+\makeatother 
+
+\newcommand{\MkProbDist}[2]{\expandafter\DeclareDocumentCommand\csname #1\endcsname{oG{}G{}G{}}{\ensuremath{#2\IfNoValueOrEmptyTF{##1}{\IfNoValueOrEmptyTF{##4}{}{_{##4}}}{_{##1}}\IfNoValueOrEmptyTF{##2}{}{\mleft(##2 \IfNoValueOrEmptyTF{##3}{}{\mid ##3}\mright)}}}}
+
+\DeclareDocumentCommand{\probdists}{om}{\IfValueTF{#1}
+                                        {\forlistlooptwo{\MkProbDist}{#1}{#2}}
+                                        {\forlistlooptwo{\MkProbDist}{#2}{#2}}
+                                     }
+
+% \expc
+% overloaded command for expected value
+\DeclareDocumentCommand\expc{oG{}G{}G{}}{\ensuremath{\EE\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\mid #3}\mright]}}}
+
+% \var
+% overloaded command for variance
+\DeclareDocumentCommand\var{oG{}G{}G{}}{\ensuremath{\operatorname{Var}\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\mid #3}\mright]}}}
+
+
+
+% \magic
+% special todo note to mark unscientific reasoning
+\DeclareDocumentCommand{\magic}{G{}}{
+	\texthl{magic}
+	\todo[color=purple!60]{
+		Science > Magic!\vspace{-.7\baselineskip}
+		\IfNoValueOrEmptyTF{#1}{}{
+			\noindent\makebox[\textwidth]{\rule{\textwidth}{0.4pt}}\\
+			#1}
+	}
+}
+\DeclareDocumentCommand{\magically}{G{}}{
+	\texthl{magically}
+	\todo[color=purple!60]{
+		Science > Magic!\vspace{-.7\baselineskip}
+		\IfNoValueOrEmptyTF{#1}{}{
+			\noindent\makebox[\textwidth]{\rule{\textwidth}{0.4pt}}\\
+			#1}
+	}
+}
+
+
+\NewDocumentCommand\mylist{>{\SplitList{,}}m}
+{
+	\begin{itemize}
+		\setlength\itemsep{.01em}
+		\ProcessList {#1} { \insertitem}
+	\end{itemize}
+}
+\newcommand\insertitem[1]{\item #1}
+
+
+\DeclareDocumentCommand{\addref}{G{}}{
+	\todo[color=red!40]{Add reference(s).\vspace{-.7\baselineskip}
+		\IfNoValueOrEmptyTF{#1}{}{
+			\vspace{-.7\baselineskip}
+			\noindent\makebox[\textwidth]{\rule{\textwidth}{0.4pt}}
+			\mylist{#1}
+		}
+	}
+}
+
+
+
