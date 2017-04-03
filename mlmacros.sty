@@ -1,13 +1,13 @@
 \NeedsTeXFormat{LaTeX2e}%[2015/01/01] % fixed via latexrelease package, see below
 \ProvidesPackage{mlmacros}[2017/02/23 custom frequently used commands]
 
+\usepackage{todonotes} % define advanced macros based on todonotes
 \usepackage{xparse} % necessary for hacking overloaded commands and iterating overlists
 \usepackage{xspace}
 \usepackage{mleftright} % for nicer spacing before \left in the presence of indices
 \usepackage{amsfonts} % for \mathbb
 \usepackage{dsfont} % for mathbb style indicator function 1
 \usepackage{soul} % provides \texthl
-\usepackage{todonotes} % define advanced macros based on todonotes
 \usepackage{xcolor}
 \definecolor{customblue}{RGB}{0,101,189}
 
@@ -137,9 +137,15 @@
 
 % define if statement that defaults to false even when the argument is just empty
 % this way, the overloaded function may be used with the third argument only with a different layout (e.g., if no argument is supplied, no brackets are needed)
-\makeatletter 
-\newcommand{\IfNoValueOrEmptyTF}[3] {\IfNoValueTF{#1}{#2}{\def\@tempa{#1}\ifx\@tempa\@empty#2\else#3\fi}}
-\makeatother 
+\ExplSyntaxOn
+\DeclareExpandableDocumentCommand{\IfNoValueOrEmptyTF}{mmm}
+{
+	\IfNoValueTF{#1}{#2}
+	{
+		\tl_if_empty:nTF {#1} {#2} {#3}
+	}
+}
+\ExplSyntaxOff
 
 \newcommand{\MkProbDist}[2]{\expandafter\DeclareDocumentCommand\csname #1\endcsname{oG{}G{}G{}}{\ensuremath{#2\IfNoValueOrEmptyTF{##1}{\IfNoValueOrEmptyTF{##4}{}{_{##4}}}{_{##1}}\IfNoValueOrEmptyTF{##2}{}{\mleft(##2 \IfNoValueOrEmptyTF{##3}{}{\mid ##3}\mright)}}}}
 
