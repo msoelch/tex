@@ -63,6 +63,7 @@
 \DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
 \DeclareDocumentCommand{\gauss}{m}{{\ensuremath{\mathcal{N}\mleft(#1\mright)}}}
 \DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\mid\mid#2\mright)}}
+\DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
 \newcommand{\loss}[2][]{\ensuremath{\mathcal{L}_{#1}\mleft(#2\mright)}}
 \DeclareDocumentCommand{\cost}{om}{\ensuremath{\mathcal{C}}\IfValueTF{#1}
 	{_{#1}}
