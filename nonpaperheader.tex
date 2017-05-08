@@ -1,0 +1,32 @@
+% These packages are very nice features for a note.
+% However, they are typically incompatible with a conference style.
+% Hence, they are separated into a second header file
+
+% % % % % % % % % %
+% FONTS
+% % % % % % % % % %
+\usepackage[osf,sc]{mathpazo} % Palatino as the main font
+\linespread{1.05}\selectfont % Palatino needs some extra spacing, here 5% extra
+%\usepackage[scaled=0.85]{beramono}
+\usepackage[euler-digits]{eulervm} % nicer math font
+
+
+% % % % % % % % % %
+% BIBLIOGRAPY
+% % % % % % % % % %
+
+
+\usepackage[
+	backend=biber, %instead of bibtex
+	%backend=bibtex8,
+	bibencoding=ascii,%
+	language=auto,%
+	style=authoryear,%
+	%style=authoryear-comp, % Author 1999, 2010
+	%bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
+	sorting=nyt, % name, year, title
+	maxbibnames=4, % default: 3, et al.
+	%backref=true,%
+	natbib=true % natbib compatibility mode (\citep and \citet still work)
+]{biblatex}
+% alternative: \usepackage{natbib}
