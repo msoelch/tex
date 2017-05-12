@@ -67,7 +67,10 @@
 \DeclareDocumentCommand{\gauss}{m}{{\ensuremath{\mathcal{N}\mleft(#1\mright)}}}
 \DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\mid\mid#2\mright)}}
 \DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
-\newcommand{\loss}[2][]{\ensuremath{\mathcal{L}_{#1}\mleft(#2\mright)}}
+\DeclareDocumentCommand{\loss}{oG{}}{\ensuremath{\mathcal{L}}\IfValueTF{#1}
+	{_{#1}}
+	{}
+	\IfNoValueOrEmptyTF{#2}{}{\mleft(#2\mright)}}
 \DeclareDocumentCommand{\cost}{oG{}}{\ensuremath{\mathcal{C}}\IfValueTF{#1}
 	{_{#1}}
 	{}
@@ -167,6 +170,11 @@
 % \var
 % overloaded command for variance
 \DeclareDocumentCommand\var{oG{}G{}G{}}{\ensuremath{\operatorname{Var}\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\mid #3}\mright]}}}
+
+% \mi
+% overloaded command for mutual information
+\DeclareDocumentCommand\mi{oG{}G{}}{\ensuremath{\operatorname{MI}\IfNoValueOrEmptyTF{#1}{}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft(#2 \IfNoValueOrEmptyTF{#3}{}{\mid #3}\mright)}}}
+
 
 
 
