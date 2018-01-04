@@ -65,7 +65,6 @@
 \DeclareDocumentCommand{\abs}{m}{{\left\lvert#1\right\rvert}}
 \DeclareDocumentCommand{\set}{m}{{\left\{#1\right\}}}
 \DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
-\DeclareDocumentCommand{\gauss}{m}{{\ensuremath{\mathcal{N}\mleft(#1\mright)}}}
 \DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\midd\midd#2\mright)}}
 \DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
 \newcommand{\loss}[2][]{\ensuremath{\mathcal{L}_{#1}\mleft(#2\mright)}}
@@ -196,7 +195,12 @@
 		{\overloadedfunction{\operatorname{Var}}[#2]{#3}{#4}{#5}{[}{]}}
 }}
 
-
+% \gauss
+\DeclareDocumentCommand{\gauss}{smG{}}{\ensuremath{
+	\IfBooleanTF{#1}
+		{\overloadedfunction*{\mathcal N}{#2}{#3}{}{(}{)}}
+		{\overloadedfunction{\mathcal N}{#2}{#3}{}{(}{)}}
+}}
 
 % \magic
 % special todo note to mark unscientific reasoning
