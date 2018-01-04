@@ -49,19 +49,6 @@
 \DeclareDocumentCommand{\set}{m}{{\left\{#1\right\}}}
 \DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
 \DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\midd\midd#2\mright)}}
-\DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
-\DeclareDocumentCommand{\loss}{oG{}}{\ensuremath{\mathcal{L}}\IfValueTF{#1}
-	{_{#1}}
-	{}
-	\IfNoValueOrEmptyTF{#2}{}{\mleft(#2\mright)}}
-\DeclareDocumentCommand{\cost}{oG{}}{\ensuremath{\mathcal{C}}\IfValueTF{#1}
-	{_{#1}}
-	{}
-	\IfNoValueOrEmptyTF{#2}{}{\mleft(#2\mright)}}
-
-
-
-
 
 % iterate over zip of two lists
 % original code http://tex.stackexchange.com/questions/12187/iterating-through-two-lists
@@ -186,6 +173,23 @@
 	\IfBooleanTF{#1}
 		{\overloadedfunction*{\mathcal N}{#2}{#3}{}{(}{)}}
 		{\overloadedfunction{\mathcal N}{#2}{#3}{}{(}{)}}
+}}
+
+\DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
+\DeclareDocumentCommand\entropy{soG{}G{}}{\ensuremath{
+		\IfBooleanTF{#1}
+		{\overloadedfunction*{\mathbb H}[#2]{#3}{#4}{}{(}{)}}
+		{\overloadedfunction{\mathbb H}[#2]{#3}{#4}{}{(}{)}}
+}}
+\DeclareDocumentCommand\loss{soG{}G{}}{\ensuremath{
+		\IfBooleanTF{#1}
+		{\overloadedfunction*{\mathcal L}[#2]{#3}{#4}{}{(}{)}}
+		{\overloadedfunction{\mathcal L}[#2]{#3}{#4}{}{(}{)}}
+}}
+\DeclareDocumentCommand\cost{soG{}G{}}{\ensuremath{
+		\IfBooleanTF{#1}
+		{\overloadedfunction*{\mathcal C}[#2]{#3}{#4}{}{(}{)}}
+		{\overloadedfunction{\mathcal C}[#2]{#3}{#4}{}{(}{)}}
 }}
 
 % \magic

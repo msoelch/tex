@@ -67,20 +67,18 @@ The call \texttt{\textbackslash probdists\{p\}} provides a command that can be u
 		\p & \p{x} & \p{x}{z} & \p[y]{x}{z} & \p[y]{x} & \p[y]
 	\end{tabular}
 \end{table}
-The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright},
-\eq{\p{\frac{x}{y}},}
-which can be undone by starring the command, \texttt{\textbackslash p*\{\textbackslash frac xy\}} leads to
-\eq{ \leadsto \p*{\frac xy}.}
+The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright}, unless starred commands (\texttt{\textbackslash p*} \etc) are used,
+\eq{\p{\frac{x}{y}} \text{ vs. starred } \p*{\frac xy}.}
 
-Moreover, the \texttt{\textbackslash p} macro ignores any argument not given in set parentheses, \eg \texttt{\textbackslash p\{x\}z} yields $\p{x}z$.
+\texttt{\textbackslash p} ignores arguments not given in braces, \eg \texttt{\textbackslash p\{x\}z} yields $\p{x}z$.
 
 Of course, \texttt{probdists} can be called with a list of letters, \eg \texttt{\textbackslash probdists\{p,q\}}. Similarly as the \texttt{\textbackslash variables} macro, we can use, \eg Greek letters, by passing optional arguments: \texttt{\textbackslash probdists[policy]\{\textbackslash pi\}} provides macros such as \texttt{\textbackslash policy\{u\}\{x\}} for $\policy{u}{x}$.
 
-At this point, more complicated constructions like $\mathbb{P}$ can be achieved by calling the underlying \texttt{\textbackslash MkProbDist}, \eg \texttt{\textbackslash MkProbDist\{P\}\{\textbackslash mathbb\{P\}\}} for $\P{x}$.
+At this point, complicated constructions like $\mathbb{P}$ can be achieved by calling the underlying \texttt{\textbackslash MkProbDist}, \eg \texttt{\textbackslash MkProbDist\{P\}\{\textbackslash mathbb\{P\}\}} for $\P{x}$.
 
 \emph{Warning:} The macros provided by \texttt{probdists} overwrite any previously created macro of the same name.
 
-\section{\texttt{\textbackslash expc} and \texttt{\textbackslash var}}
+\section{\texttt{\textbackslash expc}, \texttt{\textbackslash var}, \texttt{\textbackslash loss}, \texttt{\textbackslash cost}, \texttt{\textbackslash entropy}}
 For expectation and variance, this package provides overloaded macros similar to the dynamic macros provided by \texttt{\textbackslash probdists} in \cref{sec:probdists}.
 
 The application is straightforward:
@@ -89,10 +87,19 @@ The application is straightforward:
 	\begin{tabular}{cccc}
 		\texttt{\textbackslash expc\{x\}} & \texttt{\textbackslash expc\{x\}\{z\}} &\texttt{\textbackslash expc[y]\{x\}\{z\}} &\texttt{\textbackslash expc[y]\{x\}}\\
 		 \expc{x} & \expc{x}{z} & \expc[y]{x}{z} & \expc[y]{x} \\
-		\texttt{\textbackslash var\{x\}} & \texttt{\textbackslash var\{x\}\{z\}} &\texttt{\textbackslash var[y]\{x\}\{z\}} &\texttt{\textbackslash var[y]\{x\}} \\
-		\var{x} & \var{x}{z} & \var[y]{x}{z} & \var[y]{x}
 	\end{tabular}
 \end{table}
+
+and analogously
+\begin{table}[hb]
+	\centering
+	\begin{tabular}{cccc}
+
+		\texttt{\textbackslash var[y]\{x\}\{z\}} & \texttt{\textbackslash loss[y]\{x\}\{z\}} & \texttt{\textbackslash cost[y]\{x\}\{z\}} & \texttt{\textbackslash entropy[y]\{x\}\{z\}} \\
+		\var[y]{x}{z} & \loss[y]{x}{z} & \cost[y]{x}{z} & \entropy[y]{x}{z}
+	\end{tabular}
+\end{table}
+
 
 All comments from \cref{sec:probdists} apply here as well.
 
@@ -114,7 +121,6 @@ Some general, commonly used math expressions are provided by short, readable mac
 	\item \texttt{\textbackslash data} for \data.
 	\item \texttt{\textbackslash ind} for \ind.	
 	\item \texttt{\textbackslash left\textbackslash right} wrappers: \eq{\texttt{\textbackslash abs\{\}}:\abs{\frac a b} \qquad\texttt{\textbackslash set\{\}}:\set{\frac ab}	\qquad\texttt{\textbackslash interval\{\}}:\interval{\frac ab}}
-	\item Loss functions: \texttt{\textbackslash loss[index]\{arg\}} for $\loss[index]{arg}$. The parentheses adjust to the height of the arguments.
 	\item Kullback-Leibler divergence: \texttt{\textbackslash kl\{p\}\{q\}} for $\kl{p}{q}$. The parentheses adjust to the height of the arguments.
 	\item Gaussian/Normal distributions: \texttt{\textbackslash gauss\{0,1\}} for $\gauss{0, 1}$. The parentheses adjust to the height of the arguments unless \texttt{\textbackslash gauss*} is used. Overloaded, can be used for conditionals as well: \texttt{\textbackslash gauss\{x\}\{\textbackslash mu, \textbackslash sigma\}} gives $\gauss{x}{\mu, \sigma}$.
 	\item Integrals: \texttt{\textbackslash dint} for nicer integrals: \eq{\texttt{\textbackslash int x \textbackslash dint x}: \;\int x \dint x \qquad\quad \texttt{\textbackslash int x dx}:\;\int x dx}
