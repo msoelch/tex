@@ -154,7 +154,27 @@
 }
 \ExplSyntaxOff
 
-\newcommand{\MkProbDist}[2]{\expandafter\DeclareDocumentCommand\csname #1\endcsname{oG{}G{}G{}}{\ensuremath{#2\IfNoValueOrEmptyTF{##1}{\IfNoValueOrEmptyTF{##4}{}{_{##4}}}{_{##1}}\IfNoValueOrEmptyTF{##2}{}{\mleft(##2 \IfNoValueOrEmptyTF{##3}{}{\midd ##3}\mright)}}}}
+\DeclareDocumentCommand{\overloadedfunction}{smogggmm}{
+	#2
+	\IfNoValueOrEmptyTF{#3}
+	{\IfNoValueOrEmptyTF{#6}{}{_{#6}}}  % legacy
+	{_{#3}}
+	\IfNoValueOrEmptyTF{#4}
+	{}
+	{\IfBooleanTF{#1}
+		{#7 #4 \IfNoValueOrEmptyTF{#5}{}{\mid #5} #8}
+		{\mleft#7 #4 \IfNoValueOrEmptyTF{#5}{}{\mid #5} \mright#8}
+	}
+}
+
+\newcommand{\MkProbDist}[2]{
+	\expandafter\DeclareDocumentCommand\csname#1\endcsname{soG{}G{}G{}}{\ensuremath{
+			\IfBooleanTF{##1}
+				{\overloadedfunction*{#2}[##2]{##3}{##4}{##5}{(}{)}}
+				{\overloadedfunction{#2}[##2]{##3}{##4}{##5}{(}{)}}
+			%#2\IfNoValueOrEmptyTF{##2}{\IfNoValueOrEmptyTF{##5}{}{_{##5}}}{_{##2}}\IfNoValueOrEmptyTF{##3}{}{\IfBooleanTF{##1}{(}{\mleft(}##3 \IfNoValueOrEmptyTF{##4}{}{\midd ##4}\IfBooleanTF{##1}{)}{\mright)}}
+	}}
+}
 
 \DeclareDocumentCommand{\probdists}{om}{\IfValueTF{#1}
                                         {\forlistlooptwo{\MkProbDist}{#1}{#2}}
@@ -163,11 +183,19 @@
 
 % \expc
 % overloaded command for expected value
-\DeclareDocumentCommand\expc{oG{}G{}G{}}{\ensuremath{\EE\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\midd #3}\mright]}}}
+\DeclareDocumentCommand\expc{soG{}G{}G{}}{\ensuremath{
+	\IfBooleanTF{#1}
+		{\overloadedfunction*{\EE}[#2]{#3}{#4}{#5}{[}{]}}
+		{\overloadedfunction{\EE}[#2]{#3}{#4}{#5}{[}{]}}
+}}
 
 % \var
 % overloaded command for variance
-\DeclareDocumentCommand\var{oG{}G{}G{}}{\ensuremath{\operatorname{Var}\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\midd #3}\mright]}}}
+\DeclareDocumentCommand\var{soG{}G{}G{}}{\ensuremath{
+	\IfBooleanTF{#1}
+		{\overloadedfunction*{\operatorname{Var}}[#2]{#3}{#4}{#5}{[}{]}}
+		{\overloadedfunction{\operatorname{Var}}[#2]{#3}{#4}{#5}{[}{]}}
+}}
 
 
 

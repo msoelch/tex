@@ -66,8 +66,10 @@ The call \texttt{\textbackslash probdists\{p\}} provides a command that can be u
 		\p & \p{x} & \p{x}{z} & \p[y]{x}{z} & \p[y]{x} & \p[y]
 	\end{tabular}
 \end{table}
-The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright}:
-\eq{\p{\frac{x}{y}}}
+The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright},
+\eq{\p{\frac{x}{y}},}
+which can be undone by starring the command, \texttt{\textbackslash p*\{\textbackslash frac xy\}} leads to
+\eq{ \leadsto \p*{\frac xy}.}
 
 Moreover, the \texttt{\textbackslash p} macro ignores any argument not given in set parentheses, \eg \texttt{\textbackslash p\{x\}z} yields $\p{x}z$.
 
