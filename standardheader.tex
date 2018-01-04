@@ -6,17 +6,6 @@
 % % % % % % % % % %
 \usepackage[fleqn]{amsmath}	% fleqn for left alignment of math blocks (as in classicthesis)
 \usepackage{amssymb}
-\newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-
-% % % % % % % % % %
-% FONTS
-% % % % % % % % % %
-\usepackage[osf,sc]{mathpazo} % Palatino as the main font
-\linespread{1.05}\selectfont % Palatino needs some extra spacing, here 5% extra
-%\usepackage[scaled=0.85]{beramono}
-\usepackage[euler-digits]{eulervm} % nicer math font
 
 
 % % % % % % % % % %
@@ -33,28 +22,6 @@
 \usepackage{tikz}
 \usetikzlibrary{fit,arrows,shapes}
 \usetikzlibrary{decorations.pathreplacing}
-
-
-
-% % % % % % % % % %
-% BIBLIOGRAPY
-% % % % % % % % % %
-
-
-\usepackage[
-	backend=biber, %instead of bibtex
-	%backend=bibtex8,
-	bibencoding=ascii,%
-	language=auto,%
-	style=authoryear,%
-	%style=authoryear-comp, % Author 1999, 2010
-	%bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
-	sorting=nyt, % name, year, title
-	maxbibnames=4, % default: 3, et al.
-	%backref=true,%
-	natbib=true % natbib compatibility mode (\citep and \citet still work)
-]{biblatex}
-% alternative: \usepackage{natbib}
 
 
 % % % % % % % % % %
