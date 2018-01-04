@@ -48,7 +48,11 @@
 \DeclareDocumentCommand{\abs}{m}{{\left\lvert#1\right\rvert}}
 \DeclareDocumentCommand{\set}{m}{{\left\{#1\right\}}}
 \DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
-\DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\midd\midd#2\mright)}}
+\DeclareDocumentCommand{\kl}{smm}{\ensuremath{\operatorname{KL}
+	\IfBooleanTF{#1}
+		{(#2 \mid\mid #3)}
+		{\mleft(#2\midd\midd#3\mright)}
+}}
 
 % iterate over zip of two lists
 % original code http://tex.stackexchange.com/questions/12187/iterating-through-two-lists

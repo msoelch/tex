@@ -121,7 +121,7 @@ Some general, commonly used math expressions are provided by short, readable mac
 	\item \texttt{\textbackslash data} for \data.
 	\item \texttt{\textbackslash ind} for \ind.	
 	\item \texttt{\textbackslash left\textbackslash right} wrappers: \eq{\texttt{\textbackslash abs\{\}}:\abs{\frac a b} \qquad\texttt{\textbackslash set\{\}}:\set{\frac ab}	\qquad\texttt{\textbackslash interval\{\}}:\interval{\frac ab}}
-	\item Kullback-Leibler divergence: \texttt{\textbackslash kl\{p\}\{q\}} for $\kl{p}{q}$. The parentheses adjust to the height of the arguments.
+	\item Kullback-Leibler divergence: \texttt{\textbackslash kl\{p\}\{q\}} for $\kl{p}{q}$. The parentheses adjust to the height of the arguments unless you use \texttt{\textbackslash kl*}.
 	\item Gaussian/Normal distributions: \texttt{\textbackslash gauss\{0,1\}} for $\gauss{0, 1}$. The parentheses adjust to the height of the arguments unless \texttt{\textbackslash gauss*} is used. Overloaded, can be used for conditionals as well: \texttt{\textbackslash gauss\{x\}\{\textbackslash mu, \textbackslash sigma\}} gives $\gauss{x}{\mu, \sigma}$.
 	\item Integrals: \texttt{\textbackslash dint} for nicer integrals: \eq{\texttt{\textbackslash int x \textbackslash dint x}: \;\int x \dint x \qquad\quad \texttt{\textbackslash int x dx}:\;\int x dx}
 	\item Equations that are to be proven: \texttt{x \textbackslash shallbe y} for $x \shallbe y$. 
