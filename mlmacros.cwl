@@ -18,6 +18,8 @@
 \mcZ
 \mcD
 \data
+\relmiddle
+\midd
 \shallbe
 \dint
 \abs{arg}

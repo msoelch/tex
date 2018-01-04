@@ -56,13 +56,17 @@
 
 \newcommand{\data}{\mcD}
 
+% https://tex.stackexchange.com/questions/5502/how-to-get-a-mid-binary-relation-that-grows
+\newcommand{\relmiddle}[1]{\mathrel{}\middle#1\mathrel{}}
+\DeclareDocumentCommand{\midd}{}{\relmiddle|}
+
 \DeclareDocumentCommand{\shallbe}{}{\;{\overset{!}=}\;}
 \DeclareDocumentCommand{\dint}{}{\,\mathrm d}
 \DeclareDocumentCommand{\abs}{m}{{\left\lvert#1\right\rvert}}
 \DeclareDocumentCommand{\set}{m}{{\left\{#1\right\}}}
 \DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
 \DeclareDocumentCommand{\gauss}{m}{{\ensuremath{\mathcal{N}\mleft(#1\mright)}}}
-\DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\mid\mid#2\mright)}}
+\DeclareDocumentCommand{\kl}{mm}{\ensuremath{\operatorname{KL}\mleft(#1\midd\midd#2\mright)}}
 \DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
 \newcommand{\loss}[2][]{\ensuremath{\mathcal{L}_{#1}\mleft(#2\mright)}}
 \DeclareDocumentCommand{\cost}{oG{}}{\ensuremath{\mathcal{C}}\IfValueTF{#1}
@@ -150,7 +154,7 @@
 }
 \ExplSyntaxOff
 
-\newcommand{\MkProbDist}[2]{\expandafter\DeclareDocumentCommand\csname #1\endcsname{oG{}G{}G{}}{\ensuremath{#2\IfNoValueOrEmptyTF{##1}{\IfNoValueOrEmptyTF{##4}{}{_{##4}}}{_{##1}}\IfNoValueOrEmptyTF{##2}{}{\mleft(##2 \IfNoValueOrEmptyTF{##3}{}{\mid ##3}\mright)}}}}
+\newcommand{\MkProbDist}[2]{\expandafter\DeclareDocumentCommand\csname #1\endcsname{oG{}G{}G{}}{\ensuremath{#2\IfNoValueOrEmptyTF{##1}{\IfNoValueOrEmptyTF{##4}{}{_{##4}}}{_{##1}}\IfNoValueOrEmptyTF{##2}{}{\mleft(##2 \IfNoValueOrEmptyTF{##3}{}{\midd ##3}\mright)}}}}
 
 \DeclareDocumentCommand{\probdists}{om}{\IfValueTF{#1}
                                         {\forlistlooptwo{\MkProbDist}{#1}{#2}}
@@ -159,11 +163,11 @@
 
 % \expc
 % overloaded command for expected value
-\DeclareDocumentCommand\expc{oG{}G{}G{}}{\ensuremath{\EE\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\mid #3}\mright]}}}
+\DeclareDocumentCommand\expc{oG{}G{}G{}}{\ensuremath{\EE\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\midd #3}\mright]}}}
 
 % \var
 % overloaded command for variance
-\DeclareDocumentCommand\var{oG{}G{}G{}}{\ensuremath{\operatorname{Var}\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\mid #3}\mright]}}}
+\DeclareDocumentCommand\var{oG{}G{}G{}}{\ensuremath{\operatorname{Var}\IfNoValueOrEmptyTF{#1}{\IfNoValueOrEmptyTF{#4}{}{_{#4}}}{_{#1}}\IfNoValueOrEmptyTF{#2}{}{\mleft[#2 \IfNoValueOrEmptyTF{#3}{}{\midd #3}\mright]}}}
 
 
 
