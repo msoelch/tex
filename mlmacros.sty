@@ -13,32 +13,12 @@
 
 % Convenient macros with correct spacing
 \makeatletter
-\newcommand*{\ie}{
-	\@ifnextchar{,}
-	{i.\,e.}
-	{i.\,e.,\@\xspace}
-}
-\newcommand*{\Ie}{
-	\@ifnextchar{,}
-	{I.\,e.}
-	{I.\,e.,\@\xspace}
-}
-\newcommand*{\eg}{
-	\@ifnextchar{,}
-	{e.\,g.}
-	{e.\,g.,\@\xspace}
-}
-\newcommand*{\Eg}{
-	\@ifnextchar{,}
-	{E.\,g.}
-	{E.\,g.,\@\xspace}
-}
+\newcommand{\ie}{i.\,e.\@\xspace}
+\newcommand*{\Ie}{I.\,e.,\@\xspace}
+\newcommand*{\eg}{e.\,g.\@\xspace}
+\newcommand*{\Eg}{E.\,g.,\@\xspace}
 \newcommand{\wrt}{w.\,r.\,t.\@\xspace}
-\newcommand*{\etc}{
-    \@ifnextchar{.}
-        {etc}
-        {etc.\@\xspace}
-}
+\newcommand*{\etc}{\@ifnextchar{.}{etc}{etc.\@\xspace}}
 \makeatother
 
 
