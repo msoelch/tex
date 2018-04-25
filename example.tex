@@ -1,5 +1,4 @@
 % example document
-% last updated 2017-02-23
 
 \documentclass
 [
@@ -14,8 +13,12 @@ twoside, % Shifts odd pages to the left for easier reading when printed, can be 
 \input{standardheader}
 \input{nonpaperheader}
 
+\addbibresource{example.bib}
+
 \usepackage{mlmacros}		% custom commmands, mostly math
 
+% % % % % % % % % % % % % % % % % % % %
+% new custom commands go here
 \variables{x,y,A}
 \variables[mean,std]{\mu,\sigma}
 \varmacros{E}{\mathcal{E}}
@@ -24,6 +27,7 @@ twoside, % Shifts odd pages to the left for easier reading when printed, can be 
 \probdists[policy]{\pi}
 \MkProbDist{P}{\mathbb{P}}
 
+% % % % % % % % % % % % % % % % % % % %
 
 \title{Documentation for \texttt{mlmacros.sty}}
 \author{Maximilian Soelch}
@@ -108,7 +112,7 @@ This section collects some macros on top of the \texttt{todonotes} package.
 When a reference is missing in the text, you can use \texttt{\textbackslash addref}\addref.
 You can also add a list argument that will be turned into bullets\addref{missingref1,missingref2}.
 
-Following \href{http://lesswrong.com/lw/ix/say_not_complexity/}{$\rightarrow$this blog post by Eliezer Yudkowsky}, it's a good practice to say ``And then \magically, we get A'', or ``by \magic, B follows'' to make the missing links and arguments explicit.
+Following \href{http://lesswrong.com/lw/ix/say_not_complexity/}{$\rightarrow$this blog post by Eliezer Yudkowsky}, \cite{yudkowskyeliezerSayNotComplexity2007}, it's a good practice to say ``And then \magically, we get A'', or ``by \magic, B follows'' to make the missing links and arguments explicit.
 This package provides the two corresponding macros \texttt{\textbackslash magic}\texttt{\textbackslash magically}, which can also be used like \texttt{\textbackslash magic \{idea to fix this\}} to yield \magic{idea to fix this}.
 
 
@@ -152,6 +156,6 @@ Under Windows 10, it has to be copied to the directory \eq{\texttt{\%appdata\%\t
 
 Under Ubuntu 16.04, it has to be copied to the directory \eq{\texttt{\textasciitilde/.config/texstudio}.} 
 
-
+\printbibliography
 
 \end{document}
