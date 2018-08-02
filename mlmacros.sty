@@ -9,7 +9,7 @@
 \usepackage{dsfont} % for mathbb style indicator function 1
 \usepackage{soul} % provides \texthl
 \usepackage{xcolor}
-\usepackage{bm}
+\usepackage{bm} % bold math
 \definecolor{customblue}{RGB}{0,101,189}
 
 \newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
@@ -77,15 +77,6 @@
     % Call the loop macro again with the lists reduced by the first pair.
     \forlistlooptwo{#1}{#3}{#5}%
 }
-
-
-
-% custom bold math symbols for both Latin and Greek letters
-\newcommand{\custombold}[1]{\ifcat\noexpand#1\relax
-                        \boldsymbol{#1}
-                      \else
-                        \mathbf{#1}
-                      \fi}
 
 \newcommand{\shortminus}{\scalebox{0.5}[1.0]{\( - \)}}
 \newcommand{\shortplus}{\scalebox{0.66}{\( + \)}}
