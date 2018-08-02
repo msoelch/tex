@@ -9,6 +9,7 @@
 \usepackage{dsfont} % for mathbb style indicator function 1
 \usepackage{soul} % provides \texthl
 \usepackage{xcolor}
+\usepackage{bm}
 \definecolor{customblue}{RGB}{0,101,189}
 
 \newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
@@ -116,12 +117,12 @@
 \newcommand{\MkTs}[2]{\expandafter\def\csname #1Ts\endcsname{\ensuremath{#2\Ts}}}
 \newcommand{\Mkseq}[2]{\expandafter\def\csname #1seq\endcsname{\ensuremath{\bar{#2}}}}
 
-\newcommand{\MkVec}[2]{\expandafter\def\csname b#1\endcsname{\ensuremath{\custombold{#2}}}}
-\newcommand{\MktVec}[2]{\expandafter\def\csname b#1t\endcsname{\ensuremath{\custombold{#2}_t}}}
-\newcommand{\MkTVec}[2]{\expandafter\def\csname b#1T\endcsname{\ensuremath{\custombold{#2}_T}}}
-\newcommand{\MktsVec}[2]{\expandafter\def\csname b#1ts\endcsname{\ensuremath{\custombold{#2}\ts}}}
-\newcommand{\MkTsVec}[2]{\expandafter\def\csname b#1Ts\endcsname{\ensuremath{\custombold{#2}\Ts}}}
-\newcommand{\MkseqVec}[2]{\expandafter\def\csname b#1seq\endcsname{\ensuremath{\bar{\custombold{#2}}}}}
+\newcommand{\MkVec}[2]{\expandafter\def\csname b#1\endcsname{\ensuremath{\bm{#2}}}}
+\newcommand{\MktVec}[2]{\expandafter\def\csname b#1t\endcsname{\ensuremath{\bm{#2}_t}}}
+\newcommand{\MkTVec}[2]{\expandafter\def\csname b#1T\endcsname{\ensuremath{\bm{#2}_T}}}
+\newcommand{\MktsVec}[2]{\expandafter\def\csname b#1ts\endcsname{\ensuremath{\bm{#2}\ts}}}
+\newcommand{\MkTsVec}[2]{\expandafter\def\csname b#1Ts\endcsname{\ensuremath{\bm{#2}\Ts}}}
+\newcommand{\MkseqVec}[2]{\expandafter\def\csname b#1seq\endcsname{\ensuremath{\bar{\bm{#2}}}}}
 
 \newcommand{\varmacros}[2]{\Mkt{#1}{#2} \MkT{#1}{#2} \Mkts{#1}{#2} \MkTs{#1}{#2} \Mkseq{#1}{#2} \MkVec{#1}{#2} \MktVec{#1}{#2} \MkTVec{#1}{#2} \MktsVec{#1}{#2} \MkTsVec{#1}{#2} \MkseqVec{#1}{#2}}
 
