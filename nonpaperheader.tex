@@ -7,8 +7,9 @@
 % % % % % % % % % %
 \usepackage[osf,sc]{mathpazo} % Palatino as the main font
 \linespread{1.05}\selectfont % Palatino needs some extra spacing, here 5% extra
-%\usepackage[scaled=0.85]{beramono}
+%%\usepackage[scaled=0.85]{beramono}
 \usepackage[euler-digits]{eulervm} % nicer math font
+\renewcommand{\mathbf}{\mathbold} % necessary for greek letters in this math font to be displayed correctly
 
 
 % % % % % % % % % %
@@ -30,3 +31,5 @@
 	natbib=true % natbib compatibility mode (\citep and \citet still work)
 ]{biblatex}
 % alternative: \usepackage{natbib}
+
+\addbibresource{example.bib}
