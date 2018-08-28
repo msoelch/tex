@@ -9,13 +9,9 @@ twoside, % Shifts odd pages to the left for easier reading when printed, can be 
 %hyperref
 ]
 {article}
-
 \input{standardheader}
-\input{nonpaperheader}
-
-\addbibresource{example.bib}
-
 \usepackage{mlmacros}		% custom commmands, mostly math
+\input{nonpaperheader}
 
 % % % % % % % % % % % % % % % % % % % %
 % new custom commands go here
@@ -92,13 +88,13 @@ The \texttt{\textbackslash variables} macro eases some of that pain. It is calle
 \setlength\tabcolsep{5.pt}
 \begin{table}[h!]
 	\centering
-	\begin{tabular}{ccccccccccc}
-		\texttt{x} & \texttt{\textbackslash bx}& \texttt{\textbackslash xt} & \texttt{\textbackslash bxt} &\texttt{\textbackslash xT} & \texttt{\textbackslash bxT} & \texttt{\textbackslash xts} & \texttt{\textbackslash bxts} & \texttt{\textbackslash xTs} & \texttt{\textbackslash bxTs} & \texttt{\textbackslash bxseq}\\
-					& \bx & \xt & \bxt & \xT & \bxT & \xts  & \bxts & \xTs & \bxTs & \bxseq\\
-		\texttt{y} & \texttt{\textbackslash by}& \texttt{\textbackslash yt} & \texttt{\textbackslash byt} &\texttt{\textbackslash yT} & \texttt{\textbackslash byT} & \texttt{\textbackslash yts} & \texttt{\textbackslash byts} & \texttt{\textbackslash yTs} & \texttt{\textbackslash byTs} &\texttt{\textbackslash byseq}\\
-		& \by & \yt & \byt & \yT & \byT & \yts  & \byts & \yTs & \byTs & \byseq\\
-		\texttt{A} & \texttt{\textbackslash bA}& \texttt{\textbackslash At} & \texttt{\textbackslash bAt} &\texttt{\textbackslash AT} & \texttt{\textbackslash bAT} & \texttt{\textbackslash Ats} & \texttt{\textbackslash bAts} & \texttt{\textbackslash ATs} & \texttt{\textbackslash bATs} & \texttt{\textbackslash bAseq}\\
-		& \bA & \At & \bAt & \AT & \bAT & \Ats  & \bAts & \ATs & \bATs & \bAseq
+	\begin{tabular}{c|ccc}
+		\texttt{x} & \texttt{\textbackslash xseq}& \texttt{\textbackslash bx}&  \texttt{\textbackslash bxseq}\\
+				   & \xseq						 & \bx                       & \bxseq\\
+		\texttt{y} & \texttt{\textbackslash yseq}& \texttt{\textbackslash by}&  \texttt{\textbackslash byseq}\\
+		& \yseq						 & \by                       & \byseq\\
+		\texttt{A} & \texttt{\textbackslash Aseq}& \texttt{\textbackslash bA}&  \texttt{\textbackslash bAseq}\\
+		& \Aseq						 & \bA                       & \bAseq
 	\end{tabular}
 \end{table}
 \setlength\tabcolsep{6.pt}
@@ -106,9 +102,9 @@ The \texttt{\textbackslash variables} macro eases some of that pain. It is calle
 The driving idea behind these macros is the application to time series of scalars (normal font), vectors (bold font) and matrices (upper-case bold font). These macros can easily be edited and/or extended by adjusting the \texttt{mlmacros.sty} file.
 
 It even works with more complicated replacements, such as greek letters or other math symbols. 
-Calling \texttt{\textbackslash variables[mean,std]\{\textbackslash mu,\textbackslash sigma\}} provides analogous commands such as \texttt{\textbackslash bmeanTs} for $\bmeanTs$ or \texttt{\textbackslash stdts} for $\stdts$.
+Calling \texttt{\textbackslash variables[mean,std]\{\textbackslash mu,\textbackslash sigma\}} provides analogous commands such as \texttt{\textbackslash mean} for $\mean$, \texttt{\textbackslash bmeanseq} for $\bmeanseq$ or \texttt{\textbackslash stdseq} for $\stdseq$.
 
-More complicated macro substitutions currently do not work with \texttt{\textbackslash variables}. However, you can exploit the underlying command \texttt{\textbackslash varmacros} for every pair: \texttt{\textbackslash varmacros\{E\}\{\textbackslash mathcal\{E\}\}} for commands like \texttt{\textbackslash Et}, which yields $\bEt$.
+More complicated macro substitutions currently do not work with \texttt{\textbackslash variables}. However, you can exploit the underlying command \texttt{\textbackslash varmacros} for every pair: \texttt{\textbackslash varmacros\{E\}\{\textbackslash mathcal\{E\}\}} for commands like \texttt{\textbackslash bE}, which yields $\bE$.
 
 Notice that the list delimiter currently needs to be a comma \emph{without enclosing spaces}.
 
