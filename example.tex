@@ -1,9 +1,9 @@
 % example document
-
+\PassOptionsToPackage{table}{xcolor} % xcolor tends to produce option clashes because it is imported from all sorts of packages. This forces the table option to be inserted everywhere. https://tex.stackexchange.com/a/5375
 \documentclass
 [
 %fontsize=11pt, % Document font size
-twoside, % Shifts odd pages to the left for easier reading when printed, can be changed to oneside
+%twoside, % Shifts odd pages to the left for easier reading when printed, can be changed to oneside
 %captions=tableheading,
 %index=totoc,
 %hyperref
@@ -35,31 +35,37 @@ The \texttt{mlmacros} package provides convenient and readable macros for common
 When writing about algorithms on sequence data, we often refer to variables at a specific time by subindexing, \eg $x\tsub{t}, x\tm,x\Tp{2}$, or $x\tsub{i}{j} = (x_i, \dots, x_j)$ for a sequence.
 
 This package provides shortcuts for the most common indexes:
-%\marginpar{
-%	\texttt{\textbackslash tm},
-%	\texttt{\textbackslash tp},
-%	\texttt{\textbackslash ts},
-%	\texttt{\textbackslash tsm},	
-%	\texttt{\textbackslash tsp},\\
-%	\texttt{\textbackslash Tm},
-%	\texttt{\textbackslash Tp},
-%	\texttt{\textbackslash Ts},
-%	\texttt{\textbackslash Tsm},	
-%	\texttt{\textbackslash Tsp}	
-%}
-\setlength\tabcolsep{3.pt}
+\marginpar{
+	\texttt{\textbackslash tm},
+	\texttt{\textbackslash tp},
+	\texttt{\textbackslash ts},
+	\texttt{\textbackslash tsm},	
+	\texttt{\textbackslash tsp},\\
+	\texttt{\textbackslash Tm},
+	\texttt{\textbackslash Tp},
+	\texttt{\textbackslash Ts},
+	\texttt{\textbackslash Tsm},	
+	\texttt{\textbackslash Tsp},\\
+	\texttt{\textbackslash tsub}
+		
+}
 \begin{table}[h!]
 	\centering
-	\begin{tabular}{ccccccccc}
-		\texttt{x\textbackslash tm} & \texttt{x\textbackslash tm\{k\}} & \texttt{x\textbackslash tp} & \texttt{x\textbackslash tp\{k\}} & \texttt{x\textbackslash ts} & \texttt{x\textbackslash tsm} & \texttt{x\textbackslash tsm\{k\}} & \texttt{x\textbackslash tsp} & \texttt{x\textbackslash tsp\{k\}}\\
-		$x\tm$ & $x\tm{k}$ & $x\tp$ & $x\tp{k}$ & $x\ts$ & $x\tsm$ & $x\tsm{k}$ & $x\tsp$ & $x\tsp{k}$ \\\\
-		\texttt{x\textbackslash Tm} & \texttt{x\textbackslash Tm\{k\}} & \texttt{x\textbackslash Tp} & \texttt{x\textbackslash Tp\{k\}} & \texttt{x\textbackslash Ts} & \texttt{x\textbackslash Tsm} & \texttt{x\textbackslash Tsm\{k\}} & \texttt{x\textbackslash Tsp} & \texttt{x\textbackslash Tsp\{k\}}\\
-		$x\Tm$ & $x\Tm{k}$ & $x\Tp$ & $x\Tp{k}$ & $x\Ts$ & $x\Tsm$ & $x\Tsm{k}$ & $x\Tsp$ & $x\Tsp{k}$
+	\rowcolors{1}{gray!25}{white}
+	\begin{tabular}[t]{*{2}{p{.15\textwidth}}l*{2}{p{.18\textwidth}}}
+		\texttt{x\textbackslash tm} & \texttt{x\textbackslash tp} & \texttt{x\textbackslash ts} & \texttt{x\textbackslash tsm} & \texttt{x\textbackslash tsp} \\
+		$x\tm$ & $x\tp$ & $x\ts$ & $x\tsm$ & $x\tsp$    \\
+		\texttt{x\textbackslash tm\{k\}} & \texttt{x\textbackslash tp\{k\}} & & \texttt{x\textbackslash tsm\{k\}} & \texttt{x\textbackslash tsp\{k\}}\\
+		$x\tm{k}$ & $x\tp{k}$ & & $x\tsm{k}$ & $x\tsp{k}$ \\
+		\texttt{x\textbackslash Tm} & \texttt{x\textbackslash Tp} & \texttt{x\textbackslash Ts} & \texttt{x\textbackslash Tsm} & \texttt{x\textbackslash Tsp} \\
+		$x\Tm$ & $x\Tp$ & $x\Ts$ & $x\Tsm$ & $x\Tsp$ \\
+		\texttt{x\textbackslash Tm\{k\}} & \texttt{x\textbackslash Tp\{k\}} & & \texttt{x\textbackslash Tsm\{k\}} & \texttt{x\textbackslash Tsp\{k\}}\\
+		$x\Tm{k}$ & $x\Tp{k}$ & &  $x\Tsm{k}$ & $x\Tsp{k}$\\
+		\texttt{x\textbackslash tsub\{k\}} & & & \texttt{x\textbackslash tsub\{i\}\{j\} }& \\
+		$x\tsub{k}$ & & & $x\tsub{i}{j}$ & 
 	\end{tabular}
 \end{table}
-\setlength\tabcolsep{6.pt}
-
-The logic behind the commands is the following:
+\newline The logic behind the commands is the following:
 \begin{itemize}
 	\item Start with the desired upper or lower case \texttt{t}.
 	\item Optionally add an \texttt{s} for a sequence starting at $1$.
@@ -75,20 +81,15 @@ Notice that the plus and minus signs are slightly shortened, cf.
 Use \texttt{\textbackslash shortminus} or \texttt{\textbackslash shortplus} to make use of these.
 You can also use \texttt{\textbackslash tminus} or \texttt{\textbackslash tplus} instead of \texttt{t\textbackslash shortminus} or \texttt{t\textbackslash shortplus}, respectively.
 
-For cases not covered, this package provides the generic command \texttt{\textbackslash tsub\{\}\{\}}.\marginpar{\texttt{\textbackslash tsub}}
-The command \texttt{x\_\{\textbackslash tplus 1\}} is equivalent to \texttt{x\textbackslash tsub\{\textbackslash tplus 1\}}.
-The command \texttt{x\_\{i:j\}} is equivalent to \texttt{x\textbackslash tsub\{i\}\{j\}}.
-
-
 \section{\texttt{\textbackslash variables}}
 Macros can help a great deal to stick with keeping notational conventions while maintaining readability of the source file. However, with an increasing number of conventions, maintenance of the macros becomes just as hard.
 
 The \texttt{\textbackslash variables} macro eases some of that pain. It is called in the preamble with a list of variables and dynamically creates macros based on this list. For example, the call \texttt{\textbackslash variables\{x,y,A\}} automatically provides the following macros:
-
 \setlength\tabcolsep{5.pt}
 \begin{table}[h!]
 	\centering
-	\begin{tabular}{c|ccc}
+	\rowcolors{1}{gray!25}{white}
+	\begin{tabular}{cccc}
 		\texttt{x} & \texttt{\textbackslash xseq}& \texttt{\textbackslash bx}&  \texttt{\textbackslash bxseq}\\
 				   & \xseq						 & \bx                       & \bxseq\\
 		\texttt{y} & \texttt{\textbackslash yseq}& \texttt{\textbackslash by}&  \texttt{\textbackslash byseq}\\
@@ -98,29 +99,28 @@ The \texttt{\textbackslash variables} macro eases some of that pain. It is calle
 	\end{tabular}
 \end{table}
 \setlength\tabcolsep{6.pt}
-
-The driving idea behind these macros is the application to time series of scalars (normal font), vectors (bold font) and matrices (upper-case bold font). These macros can easily be edited and/or extended by adjusting the \texttt{mlmacros.sty} file.
-
-It even works with more complicated replacements, such as greek letters or other math symbols. 
-Calling \texttt{\textbackslash variables[mean,std]\{\textbackslash mu,\textbackslash sigma\}} provides analogous commands such as \texttt{\textbackslash mean} for $\mean$, \texttt{\textbackslash bmeanseq} for $\bmeanseq$ or \texttt{\textbackslash stdseq} for $\stdseq$.
+\newline It works with more complicated replacements, such as greek letters or other math symbols. 
+Calling \texttt{\textbackslash variables[mean,std]\{\textbackslash mu,\textbackslash sigma\}} provides commands such as \texttt{\textbackslash mean} for $\mean$, \texttt{\textbackslash bmeanseq} for $\bmeanseq$ or \texttt{\textbackslash stdseq} for $\stdseq$.
+Notice that the list delimiter currently needs to be a comma \emph{without enclosing spaces}.
 
 More complicated macro substitutions currently do not work with \texttt{\textbackslash variables}. However, you can exploit the underlying command \texttt{\textbackslash varmacros} for every pair: \texttt{\textbackslash varmacros\{E\}\{\textbackslash mathcal\{E\}\}} for commands like \texttt{\textbackslash bE}, which yields $\bE$.
 
-Notice that the list delimiter currently needs to be a comma \emph{without enclosing spaces}.
+Further automatically created macros can easily be edited and/or extended by adjusting the \texttt{mlmacros.sty} file.
+
 
 \section{\texttt{\textbackslash probdists}}\label{sec:probdists}
 The \texttt{\textbackslash probdists} macro provides a rich macro for probability distributions.
 
 The call \texttt{\textbackslash probdists\{p\}} provides a command that can be used in any of the following ways:
-
 \begin{table}[h!]
 	\centering
+	\rowcolors{1}{gray!25}{white}
 	\begin{tabular}{ccccccccc}
 		\texttt{\textbackslash p}& \texttt{\textbackslash p\{x\}} & \texttt{\textbackslash p\{x\}\{z\}} &\texttt{\textbackslash p[y]\{x\}\{z\}} &\texttt{\textbackslash p[y]\{x\}} & \texttt{\textbackslash p[y]}\\
 		\p & \p{x} & \p{x}{z} & \p[y]{x}{z} & \p[y]{x} & \p[y]
 	\end{tabular}
 \end{table}
-The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright}, unless starred commands (\texttt{\textbackslash p*} \etc) are used,
+\newline The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright}, unless starred commands (\texttt{\textbackslash p*} \etc) are used,
 \eq{\p{\frac{x}{y}} \text{ vs. starred } \p*{\frac xy}.}
 
 \texttt{\textbackslash p} ignores arguments not given in braces, \eg \texttt{\textbackslash p\{x\}z} yields $\p{x}z$.
@@ -137,24 +137,25 @@ For expectation and variance, this package provides overloaded macros similar to
 The application is straightforward:
 \begin{table}[h!]
 	\centering
+	\rowcolors{1}{gray!25}{white}
 	\begin{tabular}{cccc}
 		\texttt{\textbackslash expc\{x\}} & \texttt{\textbackslash expc\{x\}\{z\}} &\texttt{\textbackslash expc[y]\{x\}\{z\}} &\texttt{\textbackslash expc[y]\{x\}}\\
 		 \expc{x} & \expc{x}{z} & \expc[y]{x}{z} & \expc[y]{x} \\
 	\end{tabular}
 \end{table}
-
-and analogously
+\newline and analogously
+\setlength\tabcolsep{5.pt}
 \begin{table}[h!]
 	\centering
-	\begin{tabular}{cccc}
+	\rowcolors{1}{gray!25}{white}
+	\begin{tabular}{*{4}{c}}
 
 		\texttt{\textbackslash var[y]\{x\}\{z\}} & \texttt{\textbackslash loss[y]\{x\}\{z\}} & \texttt{\textbackslash cost[y]\{x\}\{z\}} & \texttt{\textbackslash entropy[y]\{x\}\{z\}} \\
 		\var[y]{x}{z} & \loss[y]{x}{z} & \cost[y]{x}{z} & \entropy[y]{x}{z}
 	\end{tabular}
 \end{table}
-
-
-All comments from \cref{sec:probdists} apply here as well.
+\setlength\tabcolsep{6.pt}
+\newline All comments from \cref{sec:probdists} apply here as well.
 
 \section{Drafting a paper}
 This section collects some macros on top of the \texttt{todonotes} package.
@@ -173,7 +174,10 @@ Some general, commonly used math expressions are provided by short, readable mac
 	\item \texttt{mathcal} wrappers: \texttt{\textbackslash mcX} for \mcX, \texttt{\textbackslash mcU} for \mcU, \texttt{\textbackslash mcZ} for \mcZ, \texttt{\textbackslash mcD} for \mcD.
 	\item \texttt{\textbackslash data} for \data.
 	\item \texttt{\textbackslash ind} for \ind.	
-	\item \texttt{\textbackslash left\textbackslash right} wrappers: \eq{\texttt{\textbackslash abs\{\}}:\abs{\frac a b} \qquad\texttt{\textbackslash set\{\}}:\set{\frac ab}	\qquad\texttt{\textbackslash interval\{\}}:\interval{\frac ab}}
+	\item \texttt{\textbackslash left\textbackslash right} wrappers: 
+	\begin{align*}
+		\texttt{\textbackslash abs\{\}}:\abs{\frac a b} \quad\texttt{\textbackslash set\{\}}:\set{\frac ab}	\quad\texttt{\textbackslash interval\{\}}\interval{\frac ab}
+	\end{align*}
 	\item Kullback-Leibler divergence: \texttt{\textbackslash kl\{p\}\{q\}} for $\kl{p}{q}$. The parentheses adjust to the height of the arguments unless you use \texttt{\textbackslash kl*}.
 	\item Gaussian/Normal distributions: \texttt{\textbackslash gauss\{0,1\}} for $\gauss{0, 1}$. The parentheses adjust to the height of the arguments unless \texttt{\textbackslash gauss*} is used. Overloaded, can be used for conditionals as well: \texttt{\textbackslash gauss\{x\}\{\textbackslash mu, \textbackslash sigma\}} gives $\gauss{x}{\mu, \sigma}$.
 	\item Integrals: \texttt{\textbackslash dint} for nicer integrals: \eq{\texttt{\textbackslash int x \textbackslash dint x}: \;\int x \dint x \qquad\quad \texttt{\textbackslash int x dx}:\;\int x dx}
@@ -192,7 +196,10 @@ This packages provides macros that automatically apply correct spacing and follo
 The latter command checks if a period follows, \ie \texttt{\textbackslash dots Germany, France, \textbackslash etc. Other countries \textbackslash dots} yields \dots Germany, France, \etc Other countries \dots
 
 \section{Style of this document}
-The default style of this document uses Palantino as the main font via \eq{\texttt{\textbackslash usepackage[osf,sc]\{mathpazo\}{}}\\\texttt{\textbackslash linespread\{{1.05}\}\textbackslash selectfont}} with some extra spacing between lines. Moreover, the Euler math font is used: \eq{\texttt{\textbackslash usepackage[euler-digits]\{{eulervm}\}}} The \texttt{amsmath} package is loaded with the \texttt{fleqn} for left flush of equations. 
+The default style of this document uses Palantino as the main font via 
+\eq{&\texttt{\textbackslash usepackage[osf,sc]\{mathpazo\}{}}\\
+	&\texttt{\textbackslash linespread\{{1.05}\}\textbackslash selectfont}} 
+with some extra spacing between lines. Moreover, the Euler math font is used: \eq{\texttt{\textbackslash usepackage[euler-digits]\{{eulervm}\}}} The \texttt{amsmath} package is loaded with the \texttt{fleqn} for left flush of equations. 
 
 All these changes were taken from the highly recommended \href{https://bitbucket.org/amiede/classicthesis/wiki/Home}{$\rightarrow$\texttt{classicthesis}} package by Andr\'e Miede.
 
@@ -203,7 +210,7 @@ Along with this style file and example document, a \texttt{cwl} file is provided
 
 Under Windows 10, it has to be copied to the directory \eq{\texttt{\%appdata\%\textbackslash texstudio\textbackslash completion\textbackslash user}.} 
 
-Under Ubuntu 16.04, it has to be copied to the directory \eq{\texttt{\textasciitilde/.config/texstudio}.} 
+Under Ubuntu 16.04 and 18.04, it has to be copied to the directory \eq{\texttt{\textasciitilde/.config/texstudio}.} 
 
 \printbibliography
 
