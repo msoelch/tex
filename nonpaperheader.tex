@@ -3,14 +3,28 @@
 % Hence, they are separated into a second header file
 
 % % % % % % % % % %
-% FONTS
+% FONTS & STYLE
 % % % % % % % % % %
 \usepackage[osf,sc]{mathpazo} % Palatino as the main font
 \linespread{1.05}\selectfont % Palatino needs some extra spacing, here 5% extra
 %%\usepackage[scaled=0.85]{beramono}
 \usepackage[euler-digits]{eulervm} % nicer math font
 \renewcommand{\mathbf}{\mathbold} % necessary for greek letters in this math font to be displayed correctly
+\usepackage[parfill]{parskip} % blank lines between paragraphs instead of indent
 
+\usepackage[
+showframe,
+paperwidth=210mm,
+paperheight=297mm,
+left=80pt,
+top=80pt,
+textwidth=345pt,
+marginparsep=20pt,
+marginparwidth=129pt,
+textheight=692pt,
+footskip=50pt
+]
+{geometry}
 
 % % % % % % % % % %
 % BIBLIOGRAPY
