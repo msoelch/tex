@@ -77,8 +77,14 @@
     % Call the loop macro again with the lists reduced by the first pair.
     \forlistlooptwo{#1}{#3}{#5}%
 }
-
-\newcommand{\shortminus}{\scalebox{0.5}[1.0]{\( - \)}}
+%\newcommand{\shortminus}{\scalebox{0.5}[1.0]{\( - \)}}
+%\newcommand{\shortminus}{%
+%	\setbox0=\hbox{-}%
+%	\vcenter{%
+%		\hrule width\wd0 height \the\fontdimen8\textfont3%
+%	}%
+%}
+\newcommand{\shortminus}{\text{--}}
 \newcommand{\shortplus}{\scalebox{0.66}{\( + \)}}
 \newcommand{\tminus}{t\shortminus}
 \newcommand{\tplus}{t\shortplus}
