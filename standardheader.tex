@@ -14,7 +14,7 @@
 \usepackage{graphicx} 		% Required for including images
 \usepackage{caption}
 \captionsetup{font=small} 	% format=hang,
-\usepackage{subfig}
+%\usepackage{subfig}
 \usepackage{tabularx}
 \setlength{\extrarowheight}{3pt} % increase table row height
 \usepackage{pbox} 			% for linebreaking in cells
@@ -31,6 +31,8 @@
 [
 %disable
 ]{todonotes}
+\usepackage{subcaption}
+\usepackage[nolist,nohyperlinks]{acronym} % acronyms
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage[english]{babel} % hyphenation, special characters, ...
@@ -51,4 +53,3 @@ stretch=10,					% reduce stretchability (default: 20)
 shrink=10					% reduce shrinkability (default: 20)
 ]
 {microtype}
-\usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
