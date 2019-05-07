@@ -25,10 +25,12 @@
 \newcommand*{\etc}{\@ifnextchar{.}{etc}{etc.\@\xspace}}
 \makeatother
 
-
+\usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
+\renewcommand{\cancelto}[2]{\overset{#2}{\cancel{#1}}}
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}}%
 \newcommand{\xmark}{\ding{55}}%
+\newcommand{\super}[1]{^{(#1)}}
 
 % Math macros
 \newcommand{\NN}{\ensuremath{\mathbb{N}}}
