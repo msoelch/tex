@@ -1,4 +1,4 @@
-\usepackage[l2tabu, orthodox]{nag}
+\usepackage[orthodox]{nag}
 
 
 % % % % % % % % % %
@@ -14,7 +14,7 @@
 \usepackage{graphicx} 		% Required for including images
 \usepackage{caption}
 \captionsetup{font=small} 	% format=hang,
-%\usepackage{subfig}
+\usepackage{subfig}
 \usepackage{tabularx}
 \setlength{\extrarowheight}{3pt} % increase table row height
 \usepackage{pbox} 			% for linebreaking in cells
@@ -31,16 +31,15 @@
 [
 %disable
 ]{todonotes}
-\usepackage{subcaption}
-\usepackage[nolist,nohyperlinks]{acronym} % acronyms
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
 \usepackage[english]{babel} % hyphenation, special characters, ...
 \usepackage{csquotes}		% recommended with babel for quotes
-\usepackage[hidelinks]{hyperref}       % hyperlinks
+\usepackage[hidelinks,breaklinks]{hyperref}       % hyperlinks
 \usepackage{cleveref}		% provides \cref for nice in-document refs
 \usepackage{url}            % simple URL typesetting
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{booktabs}
 \usepackage
 [
 activate={true,nocompatibility}, % activate protrusion and expansion
@@ -53,3 +52,5 @@ stretch=10,					% reduce stretchability (default: 20)
 shrink=10					% reduce shrinkability (default: 20)
 ]
 {microtype}
+\microtypecontext{spacing=nonfrench}
+\usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
