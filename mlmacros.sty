@@ -178,6 +178,14 @@
                                         {\forlistlooptwo{\MkProbDist}{#2}{#2}}
                                      }
 
+% \mi
+% overloaded command for mutual information
+\DeclareDocumentCommand\mi{soG{}G{}G{}}{\ensuremath{
+		\IfBooleanTF{#1}
+		{\overloadedfunction*{\operatorname{MI}}[#2]{#3}{#4}{#5}{(}{)}}
+		{\overloadedfunction{\operatorname{MI}}[#2]{#3}{#4}{#5}{(}{)}}
+}}
+
 % \expc
 % overloaded command for expected value
 \DeclareDocumentCommand\expc{soG{}G{}G{}}{\ensuremath{
