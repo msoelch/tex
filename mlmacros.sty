@@ -9,7 +9,7 @@
 \usepackage{dsfont} % for mathbb style indicator function 1
 \usepackage{soul} % provides \texthl
 \usepackage{xcolor}
-\usepackage{bm} % bold math
+\usepackage{relsize} % required for smaller math subscripts
 \definecolor{customblue}{RGB}{0,101,189}
 
 \newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
@@ -92,8 +92,8 @@
 %		\hrule width\wd0 height \the\fontdimen8\textfont3%
 %	}%
 %}
-\newcommand{\shortminus}{\text{--}}
-\newcommand{\shortplus}{\scalebox{0.66}{\( + \)}}
+\newcommand{\shortminus}{\mathbin{\mathsmaller{-}}}
+\newcommand{\shortplus}{\mathbin{\mathsmaller{+}}}
 \newcommand{\tminus}{t\shortminus}
 \newcommand{\tplus}{t\shortplus}
 \newcommand{\Tminus}{T\shortminus}
@@ -116,20 +116,32 @@
 \DeclareDocumentCommand\Tsp{G{}}{\tsub{1}{\Tplus\IfNoValueOrEmptyTF{#1}{1}{#1}}}
 
 % add macros for time indices and include bold versions for vectors/matrices
-\newcommand{\Mkvar}[2]{\expandafter\def\csname #1\endcsname{\ensuremath{#2}}}
-\newcommand{\Mkseq}[2]{\expandafter\def\csname #1seq\endcsname{\ensuremath{\bar{#2}}}}
-\newcommand{\MkVec}[2]{\expandafter\def\csname b#1\endcsname{\ensuremath{\bm{\mathbf{#2}}}}}
-\newcommand{\MkseqVec}[2]{\expandafter\def\csname b#1seq\endcsname{\ensuremath{\bar{\bm{\mathbf{#2}}}}}}
-
-\newcommand{\varmacros}[2]{\Mkseq{#1}{#2} \MkVec{#1}{#2} \MkseqVec{#1}{#2}}
-\newcommand{\varmacrosdifferent}[2]{\Mkvar{#1}{#2} \varmacros{#1}{#2}}
-
+\newcommand{\varmacros}[2]{
+	%base
+	\expandafter\def\csname #1\endcsname{\ensuremath{#2}}
+	\expandafter\def\csname b#1\endcsname{\ensuremath{\boldsymbol{\mathbf{\csname #1\endcsname}}}}
+	% seq
+	\expandafter\def\csname #1seq\endcsname{\ensuremath{\overline{\csname #1\endcsname}}}
+	\expandafter\def\csname b#1seq\endcsname{\ensuremath{\overline{\csname b#1\endcsname}}}
+	% all
+	\expandafter\def\csname #1all\endcsname{\ensuremath{\csname #1\endcsname\Ts}}
+	\expandafter\def\csname b#1all\endcsname{\ensuremath{\csname b#1\endcsname\Ts}}
+	% past
+	\expandafter\def\csname #1past\endcsname{\ensuremath{\csname #1\endcsname\tsm}}
+	\expandafter\def\csname b#1past\endcsname{\ensuremath{\csname b#1\endcsname\tsm}}
+	% future
+	\expandafter\def\csname #1future\endcsname{\ensuremath{\csname #1\endcsname\tsub{\tplus1}{T}}}
+	\expandafter\def\csname b#1future\endcsname{\ensuremath{\csname b#1\endcsname\tsub{\tplus1}{T}}}
+	% filter
+	\expandafter\def\csname #1filter\endcsname{\ensuremath{\csname #1\endcsname\ts}}
+	\expandafter\def\csname b#1filter\endcsname{\ensuremath{\csname b#1\endcsname\ts}}
+}
 % \variables
 % loop over list and create respective commands
 % can be given optional arguments if escaped characters are to be used
 % e.g., \variables{a}--> \ba vs. \variables[m,a]{\mu, a} --> \bm, \ba
 \DeclareDocumentCommand{\variables}{om}{\IfValueTF{#1}
-                                        {\forlistlooptwo{\varmacrosdifferent}{#1}{#2}}
+                                        {\forlistlooptwo{\varmacros}{#1}{#2}}
                                         {\forlistlooptwo{\varmacros}{#2}{#2}}
                                      }
 
@@ -152,24 +164,42 @@
 }
 \ExplSyntaxOff
 
-\DeclareDocumentCommand{\overloadedfunction}{smogggmm}{
-	#2
-	\IfNoValueOrEmptyTF{#3}
-	{\IfNoValueOrEmptyTF{#6}{}{_{#6}}}  % legacy
-	{_{#3}}
+\makeatletter
+\newcommand{\splitatbar}[1]{
+	\protected@edef\split@temp{#1}%
+	\saveexpandmode
+	\expandarg\StrCut{\split@temp}{|}{\argument}{\condition}%
+	\restoreexpandmode
+}
+\makeatother
+
+\DeclareDocumentCommand{\overloadedfunction}{smogmmg}{
+	\IfNoValueOrEmptyTF{#3}{#2}{#2_{#3}}
 	\IfNoValueOrEmptyTF{#4}
 	{}
-	{\IfBooleanTF{#1}
-		{#7 #4 \IfNoValueOrEmptyTF{#5}{}{\mid #5} #8}
-		{\mleft#7 #4 \IfNoValueOrEmptyTF{#5}{}{\midd #5} \mright#8}
+	{	
+		\IfNoValueOrEmptyTF{#7}
+			{
+				\splitatbar{#4}
+			}
+			{ % false part is for backward compat
+				\def\argument{#4}
+				\def\condition{#7}
+			} 
+		\IfBooleanTF{#1}
+		{
+			\ifdefempty{\condition} {#5\argument#6} {#5\argument \midd \condition#6}
+		}
+		{
+			\ifdefempty{\condition} {\mleft #5 \argument \mright #6} {\mleft#5 \argument \midd \condition \mright#6}
+		}
 	}
 }
-
 \newcommand{\MkProbDist}[2]{
-	\expandafter\DeclareDocumentCommand\csname#1\endcsname{soG{}G{}G{}}{\ensuremath{
+	\expandafter\DeclareDocumentCommand\csname#1\endcsname{soG{}G{}}{\ensuremath{
 			\IfBooleanTF{##1}
-				{\overloadedfunction*{#2}[##2]{##3}{##4}{##5}{(}{)}}
-				{\overloadedfunction{#2}[##2]{##3}{##4}{##5}{(}{)}}
+			{\overloadedfunction*{#2}[##2]{##3}{(}{)}{##4}}
+			{\overloadedfunction{#2}[##2]{##3}{(}{)}{##4}}
 	}}
 }
 
@@ -180,50 +210,54 @@
 
 % \mi
 % overloaded command for mutual information
-\DeclareDocumentCommand\mi{soG{}G{}G{}}{\ensuremath{
+\DeclareDocumentCommand\mi{soG{}}{\ensuremath{
 		\IfBooleanTF{#1}
-		{\overloadedfunction*{\operatorname{MI}}[#2]{#3}{#4}{#5}{(}{)}}
-		{\overloadedfunction{\operatorname{MI}}[#2]{#3}{#4}{#5}{(}{)}}
+		{\overloadedfunction*{\operatorname{MI}}[#2]{#3}{(}{)}}
+		{\overloadedfunction{\operatorname{MI}}[#2]{#3}{(}{)}}
 }}
 
 % \expc
 % overloaded command for expected value
-\DeclareDocumentCommand\expc{soG{}G{}G{}}{\ensuremath{
+\DeclareDocumentCommand\expc{soG{}}{\ensuremath{
 	\IfBooleanTF{#1}
-		{\overloadedfunction*{\EE}[#2]{#3}{#4}{#5}{[}{]}}
-		{\overloadedfunction{\EE}[#2]{#3}{#4}{#5}{[}{]}}
+		{\overloadedfunction*{\EE}[#2]{#3}{[}{]}}
+		{\overloadedfunction{\EE}[#2]{#3}{[}{]}}
 }}
 
 % \var
 % overloaded command for variance
-\DeclareDocumentCommand\var{soG{}G{}G{}}{\ensuremath{
+\DeclareDocumentCommand\var{soG{}}{\ensuremath{
 	\IfBooleanTF{#1}
-		{\overloadedfunction*{\operatorname{Var}}[#2]{#3}{#4}{#5}{[}{]}}
-		{\overloadedfunction{\operatorname{Var}}[#2]{#3}{#4}{#5}{[}{]}}
+		{\overloadedfunction*{\operatorname{Var}}[#2]{#3}{[}{]}}
+		{\overloadedfunction{\operatorname{Var}}[#2]{#3}{[}{]}}
 }}
 
 % \gauss
-\DeclareDocumentCommand{\gauss}{smG{}}{\ensuremath{
+\DeclareDocumentCommand{\gauss}{sm}{\ensuremath{
 	\IfBooleanTF{#1}
-		{\overloadedfunction*{\mathcal N}{#2}{#3}{}{(}{)}}
-		{\overloadedfunction{\mathcal N}{#2}{#3}{}{(}{)}}
+		{
+			\overloadedfunction*{\mathcal{N}}{#2}{(}{)}
+		}
+		{
+			\overloadedfunction{\mathcal{N}}{#2}{(}{)}
+		}
 }}
 
 \DeclareDocumentCommand{\entropy}{m}{\ensuremath{\operatorname{\mathbb{H}}\mleft(#1\mright)}}
-\DeclareDocumentCommand\entropy{soG{}G{}}{\ensuremath{
+\DeclareDocumentCommand\entropy{soG{}}{\ensuremath{
 		\IfBooleanTF{#1}
-		{\overloadedfunction*{\mathbb H}[#2]{#3}{#4}{}{(}{)}}
-		{\overloadedfunction{\mathbb H}[#2]{#3}{#4}{}{(}{)}}
+		{\overloadedfunction*{\mathbb H}[#2]{#3}{(}{)}}
+		{\overloadedfunction{\mathbb H}[#2]{#3}{(}{)}}
 }}
-\DeclareDocumentCommand\loss{soG{}G{}}{\ensuremath{
+\DeclareDocumentCommand\loss{soG{}}{\ensuremath{
 		\IfBooleanTF{#1}
-		{\overloadedfunction*{\mathcal L}[#2]{#3}{#4}{}{(}{)}}
-		{\overloadedfunction{\mathcal L}[#2]{#3}{#4}{}{(}{)}}
+		{\overloadedfunction*{\mathcal L}[#2]{#3}{(}{)}}
+		{\overloadedfunction{\mathcal L}[#2]{#3}{(}{)}}
 }}
-\DeclareDocumentCommand\cost{soG{}G{}}{\ensuremath{
+\DeclareDocumentCommand\cost{soG{}}{\ensuremath{
 		\IfBooleanTF{#1}
-		{\overloadedfunction*{\mathcal C}[#2]{#3}{#4}{}{(}{)}}
-		{\overloadedfunction{\mathcal C}[#2]{#3}{#4}{}{(}{)}}
+		{\overloadedfunction*{\mathcal C}[#2]{#3}{(}{)}}
+		{\overloadedfunction{\mathcal C}[#2]{#3}{(}{)}}
 }}
 
 % \magic
