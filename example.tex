@@ -84,23 +84,21 @@ You can also use \texttt{\textbackslash tminus} or \texttt{\textbackslash tplus}
 \section{\texttt{\textbackslash variables}}
 Macros can help a great deal to stick with keeping notational conventions while maintaining readability of the source file. However, with an increasing number of conventions, maintenance of the macros becomes just as hard.
 
-The \texttt{\textbackslash variables} macro eases some of that pain. It is called in the preamble with a list of variables and dynamically creates macros based on this list. For example, the call \texttt{\textbackslash variables\{x,y,A\}} automatically provides the following macros:
+The \texttt{\textbackslash variables} macro eases some of that pain. It is called in the preamble with a list of variables and dynamically creates macros based on this list. For example, the call \texttt{\textbackslash variables\{x\}} automatically provides the following macros:
 \setlength\tabcolsep{5.pt}
 \begin{table}[h!]
 	\centering
 	\rowcolors{1}{gray!25}{white}
-	\begin{tabular}{cccc}
-		\texttt{x} & \texttt{\textbackslash xseq}& \texttt{\textbackslash bx}&  \texttt{\textbackslash bxseq}\\
-				   & \xseq						 & \bx                       & \bxseq\\
-		\texttt{y} & \texttt{\textbackslash yseq}& \texttt{\textbackslash by}&  \texttt{\textbackslash byseq}\\
-		& \yseq						 & \by                       & \byseq\\
-		\texttt{A} & \texttt{\textbackslash Aseq}& \texttt{\textbackslash bA}&  \texttt{\textbackslash bAseq}\\
-		& \Aseq						 & \bA                       & \bAseq
+	\begin{tabular}{cccccc}
+		\texttt{\textbackslash x}		   & \texttt{\textbackslash xseq}	& \texttt{\textbackslash xall} & \texttt{\textbackslash xpast} & \texttt{\textbackslash xfilter} &\texttt{\textbackslash xfuture}\\
+		\x		   & \xseq	& \xall & \xpast & \xfilter &\xfuture\\
+		\texttt{\textbackslash bx	}	   & \texttt{\textbackslash bxseq}	& \texttt{\textbackslash bxall }& \texttt{\textbackslash bxpast }& \texttt{\textbackslash bxfilter }&\texttt{\textbackslash bxfuture } \\
+		\bx		   & \bxseq	& \bxall & \bxpast & \bxfilter &\bxfuture
 	\end{tabular}
 \end{table}
 \setlength\tabcolsep{6.pt}
 \newline It works with more complicated replacements, such as greek letters or other math symbols. 
-Calling \texttt{\textbackslash variables[mean,std]\{\textbackslash mu,\textbackslash sigma\}} provides commands such as \texttt{\textbackslash mean} for $\mean$, \texttt{\textbackslash bmeanseq} for $\bmeanseq$ or \texttt{\textbackslash stdseq} for $\stdseq$.
+Calling \texttt{\textbackslash variables[mean,std]\{\textbackslash mu,\textbackslash sigma\}} provides commands such as \texttt{\textbackslash mean} for $\mean$, \texttt{\textbackslash bmeanseq} for $\bmeanseq$ or \texttt{\textbackslash stdall} for $\stdall$.
 Notice that the list delimiter currently needs to be a comma \emph{without enclosing spaces}.
 
 More complicated macro substitutions currently do not work with \texttt{\textbackslash variables}. However, you can exploit the underlying command \texttt{\textbackslash varmacros} for every pair: \texttt{\textbackslash varmacros\{E\}\{\textbackslash mathcal\{E\}\}} for commands like \texttt{\textbackslash bE}, which yields $\bE$.
@@ -117,11 +115,12 @@ The call \texttt{\textbackslash probdists\{p\}} provides a command that can be u
 	\rowcolors{1}{gray!25}{white}
 	\begin{tabular}{ccccccccc}
 		\texttt{\textbackslash p}& \texttt{\textbackslash p\{x\}} & \texttt{\textbackslash p\{x\}\{z\}} &\texttt{\textbackslash p[y]\{x\}\{z\}} &\texttt{\textbackslash p[y]\{x\}} & \texttt{\textbackslash p[y]}\\
-		\p & \p{x} & \p{x}{z} & \p[y]{x}{z} & \p[y]{x} & \p[y]
+		&&\texttt{\textbackslash p\{x|z\}} &\texttt{\textbackslash p[y]\{x|z\}}\\
+		\p & \p{x} & \p{x|z} & \p[y]{x|z} & \p[y]{x} & \p[y]
 	\end{tabular}
 \end{table}
 \newline The \texttt{\textbackslash p} macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \texttt{\textbackslash mleft} and \texttt{\textbackslash mright}, unless starred commands (\texttt{\textbackslash p*} \etc) are used,
-\eq{\p{\frac{x}{y}} \text{ vs. starred } \p*{\frac xy}.}
+\eq{\p{x^2 | y_t} \text{ vs. starred } \p*{x^2 | y_t}.}
 
 \texttt{\textbackslash p} ignores arguments not given in braces, \eg \texttt{\textbackslash p\{x\}z} yields $\p{x}z$.
 
@@ -139,8 +138,8 @@ The application is straightforward:
 	\centering
 	\rowcolors{1}{gray!25}{white}
 	\begin{tabular}{cccc}
-		\texttt{\textbackslash expc\{x\}} & \texttt{\textbackslash expc\{x\}\{z\}} &\texttt{\textbackslash expc[y]\{x\}\{z\}} &\texttt{\textbackslash expc[y]\{x\}}\\
-		 \expc{x} & \expc{x}{z} & \expc[y]{x}{z} & \expc[y]{x} \\
+		\texttt{\textbackslash expc\{x\}} & \texttt{\textbackslash expc\{x|z\}} &\texttt{\textbackslash expc[y]\{x|z\}} &\texttt{\textbackslash expc[y]\{x\}}\\
+		 \expc{x} & \expc{x|z} & \expc[y]{x|z} & \expc[y]{x} \\
 	\end{tabular}
 \end{table}
 \newline and analogously
@@ -148,10 +147,12 @@ The application is straightforward:
 \begin{table}[h!]
 	\centering
 	\rowcolors{1}{gray!25}{white}
-	\begin{tabular}{*{4}{c}}
+	\begin{tabular}{*{3}{c}}
 
-		\texttt{\textbackslash var[y]\{x\}\{z\}} & \texttt{\textbackslash loss[y]\{x\}\{z\}} & \texttt{\textbackslash cost[y]\{x\}\{z\}} & \texttt{\textbackslash entropy[y]\{x\}\{z\}} \\
-		\var[y]{x}{z} & \loss[y]{x}{z} & \cost[y]{x}{z} & \entropy[y]{x}{z}
+		\texttt{\textbackslash var[y]\{x|z\}} & \texttt{\textbackslash loss[y]\{x|z\}} & \texttt{\textbackslash cost[y]\{x|z\}}\\
+		\var[y]{x|z} & \loss[y]{x|z} & \cost[y]{x|z} \\
+		\texttt{\textbackslash entropy[y]\{x|z\}}&  \texttt{\textbackslash mi[y]\{x|z\}} \\
+		\entropy[y]{x|z} & \mi[y]{x|z}
 	\end{tabular}
 \end{table}
 \setlength\tabcolsep{6.pt}
@@ -176,14 +177,14 @@ Some general, commonly used math expressions are provided by short, readable mac
 	\item \texttt{\textbackslash ind} for \ind.	
 	\item \texttt{\textbackslash left\textbackslash right} wrappers: 
 	\begin{align*}
-		\texttt{\textbackslash abs\{\}}:\abs{\frac a b} \quad\texttt{\textbackslash set\{\}}:\set{\frac ab}	\quad\texttt{\textbackslash interval\{\}}\interval{\frac ab}
+		\texttt{\textbackslash abs\{\}}:\abs{\frac a b} \quad\texttt{\textbackslash set\{\}}:\set{\frac ab}	\quad\texttt{\textbackslash interval\{\}}:\interval{\frac ab}
 	\end{align*}
 	\item Kullback-Leibler divergence: \texttt{\textbackslash kl\{p\}\{q\}} for $\kl{p}{q}$. The parentheses adjust to the height of the arguments unless you use \texttt{\textbackslash kl*}.
 	\item Gaussian/Normal distributions: \texttt{\textbackslash gauss\{0,1\}} for $\gauss{0, 1}$. The parentheses adjust to the height of the arguments unless \texttt{\textbackslash gauss*} is used. Overloaded, can be used for conditionals as well: \texttt{\textbackslash gauss\{x\}\{\textbackslash mu, \textbackslash sigma\}} gives $\gauss{x}{\mu, \sigma}$.
 	\item Integrals: \texttt{\textbackslash dint} for nicer integrals: \eq{\texttt{\textbackslash int x \textbackslash dint x}: \;\int x \dint x \qquad\quad \texttt{\textbackslash int x dx}:\;\int x dx}
 	\item Equations that are to be proven: \texttt{x \textbackslash shallbe y} for $x \shallbe y$. 
 \end{itemize}
-\subsection{Other}
+\subsection{Abbreviations}
 One of the most cumbersome typesetting issues is the correct spacing after abbreviations.
 
 This packages provides macros that automatically apply correct spacing and follow \href{http://www.quickanddirtytips.com/education/grammar/ie-versus-eg?page=2}{$\rightarrow$this guide} for 
@@ -191,9 +192,12 @@ This packages provides macros that automatically apply correct spacing and follo
 	\item \emph{with respect to}: \texttt{derivative \textbackslash wrt input} $\leadsto$ derivative \wrt input,
 	\item \emph{exempli gratia}: \texttt{algrorithms, \textbackslash eg EM} $\leadsto$ algorithms, \eg EM; also \texttt{\textbackslash Eg} for \Eg
 	\item \emph{id est}: \texttt{156 members, \textbackslash ie almost all} $\leadsto$ 156 members, \ie almost all; also \texttt{\textbackslash Ie} for \Ie
+	\item \emph{versus}: \texttt{test \textbackslash train error} $\leadsto$ test \vs train error
 	\item \emph{et cetera}: \texttt{Germany, France, \textbackslash etc} $\leadsto$ Germany, France, \etc
 \end{itemize}
 The latter command checks if a period follows, \ie \texttt{\textbackslash dots Germany, France, \textbackslash etc. Other countries \textbackslash dots} yields \dots Germany, France, \etc Other countries \dots
+\subsection{Other}
+For easy use in, \eg, tables: \texttt{\textbackslash xmark} and \texttt{\textbackslash cmark} for \xmark and \cmark.
 
 \section{Style of this document}
 The default style of this document uses Palantino as the main font via 

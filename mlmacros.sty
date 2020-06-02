@@ -30,8 +30,8 @@
 \usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
 \renewcommand{\cancelto}[2]{\overset{#2}{\cancel{#1}}}
 \usepackage{pifont}
-\newcommand{\cmark}{\ding{51}}%
-\newcommand{\xmark}{\ding{55}}%
+\newcommand{\cmark}{\ding{51}\xspace}%
+\newcommand{\xmark}{\ding{55}\xspace}%
 \newcommand{\super}[1]{^{(#1)}}
 
 % Math macros
@@ -188,7 +188,7 @@
 			} 
 		\IfBooleanTF{#1}
 		{
-			\ifdefempty{\condition} {#5\argument#6} {#5\argument \midd \condition#6}
+			\ifdefempty{\condition} {#5\argument#6} {#5\argument \mid \condition#6}
 		}
 		{
 			\ifdefempty{\condition} {\mleft #5 \argument \mright #6} {\mleft#5 \argument \midd \condition \mright#6}
