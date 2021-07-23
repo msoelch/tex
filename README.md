@@ -1,8 +1,6 @@
 # tex
 This repository provides convenient and readable macros for commonly used syntax when writing scientific articles about machine learning.
-The documentation can be found in `example.tex` and `example.pdf`, respectively.
+The functionality is in the package `mlmacros.sty`.
+The documentation can be found in `mlmacros.pdf`.
 
-### Planned extensions
-- Allow TeXstudio autocomplete even for dynamically created macros (e.g., via script).
-- include common abbreviations by default.
-- add marginpars in the docs.
+Moreover, `opinion.pdf` provides some opinionated best practices gathered over the years.
