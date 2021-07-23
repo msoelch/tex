@@ -1,0 +1,25 @@
+\section{\texttt{\textbackslash probdists}}\label{sec:probdists}
+The \verb|\probdists| macro provides a rich macro for probability distributions.
+The call \verb|\probdists{p}| provides a command that can be used in any of the following ways:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{llllll}
+		\verb|\p| & \verb|\p{x}| & \verb=\p{x|z}= & \verb=\p[y]{x|z}= & \verb|\p[y]{x}| & \verb|\p[y]|\\
+		\p & \p{x} & \p{x|z} & \p[y]{x|z} & \p[y]{x} & \p[y]
+	\end{tabular}
+\end{table}
+The \verb|\p| macro dynamically decides which parts to display. This allows for rapid adjustment of the syntax. The parentheses adjust dynamically via internal usage of \verb|\mleft| and \verb|\mright|, unless starred commands (\verb|\p*| \etc) are used,
+\begin{equation}
+	\p{x^2 | y_t} \text{ vs. starred } \p*{x^2 | y_t}.
+\end{equation}
+
+\verb|\p| ignores arguments not given in braces, \eg \verb|\p{x}z| yields $\p{x}z$.
+
+Of course, \verb|probdists| can be called with a list of letters, \eg \verb|\probdists{p,q}|. 
+Similarly as the \verb|\variables| macro, we can use, \eg Greek letters, by passing optional arguments: 
+\verb|\probdists[policy]{\pi}| provides macros such as \verb=\policy{u|x}= for $\policy{u|x}$.
+
+At this point, complicated constructions like $\mathbb{P}$ can be achieved by calling the underlying \verb|\MkProbDist|, \eg \verb|\MkProbDist{P}{\mathbb{P}}| for $\P{x}$.
+
+\emph{Warning:} The macros provided by \verb|probdists| overwrite any previously created macro of the same name.

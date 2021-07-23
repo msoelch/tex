@@ -1,0 +1,38 @@
+\section{Subindexing sequence data}
+When writing about algorithms on sequence data, we often refer to variables at a specific time by subindexing, \eg $x\tsub{t}, x\tm,x\Tp{2}$, or $x\tsub{i}{j} = (x_i, \dots, x_j)$ for a sequence.
+This package provides shortcuts for the most common indexes:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}[t]{lllll}
+		\verb|x\tm| & \verb|x\tp| & \verb|x\ts| & \verb|x\tsm| & \verb|x\tsp|\\
+		$x\tm$ & $x\tp$ & $x\ts$ & $x\tsm$ & $x\tsp$\\[1.5em]
+		
+		\verb|x\tm{k}| & \verb|x\tp{k}| & & \verb|x\tsm{k}| & \verb|x\tsp{k}|\\
+		$x\tm{k}$ & $x\tp{k}$ & & $x\tsm{k}$ & $x\tsp{k}$\\[1.5em]
+
+		\verb|x\Tm| & \verb|x\Tp| & \verb|x\Ts| & \verb|x\Tsm| & \verb|x\Tsp|\\
+		$x\Tm$ & $x\Tp$ & $x\Ts$ & $x\Tsm$ & $x\Tsp$\\[1.5em]
+
+		\verb|x\Tm{k}| & \verb|x\Tp{k}| & & \verb|x\Tsm{k}| & \verb|x\Tsp{k}|\\
+		$x\Tm{k}$ & $x\Tp{k}$ & &  $x\Tsm{k}$ & $x\Tsp{k}$\\[1.5em]
+	
+		\verb|x\tsub{k}| & & & \verb|x\tsub{i}{j}| & \\		
+		$x\tsub{k}$ & & & $x\tsub{i}{j}$ & 
+	\end{tabular}
+\end{table}
+The logic behind the commands is the following:
+\begin{itemize}
+	\item Start with the desired upper or lower case \verb|t|.
+	\item Optionally add an \verb|s| for a sequence starting at $1$.
+	\item Add \verb|m| or \verb|p| for minus or plus.
+	\item Optionally add an argument to replace the default $1$.
+\end{itemize}
+
+Notice that the plus and minus signs are slightly shortened, cf.
+\begin{align*}
+	&x_{t-1:T+K}\\
+	&x\tsub{t\shortminus1}{T\shortplus K}
+\end{align*}
+Use \verb|\shortminus| or \verb|\shortplus| to make use of these.
+Alternatively, you can  use \verb|\tminus| or \verb|\tplus| instead of \verb|t\shortminus| or \verb|t\shortplus|, respectively.

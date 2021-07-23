@@ -1,0 +1,26 @@
+\section{\texttt{\textbackslash expc}, \texttt{\textbackslash var}, \texttt{\textbackslash loss}, \texttt{\textbackslash cost}, \texttt{\textbackslash entropy}}
+For expectation and variance, this package provides overloaded macros similar to the dynamic macros provided by \texttt{\textbackslash probdists} in \cref{sec:probdists}.
+
+The application is straightforward:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{llll}
+		\verb|\expc{x}| & \verb+\expc{x|z}+ &\verb+\expc[y]{x|z}+ &\verb|\expc[y]{x}|\\
+		 \expc{x} & \expc{x|z} & \expc[y]{x|z} & \expc[y]{x} \\
+	\end{tabular}
+\end{table}
+and analogously
+
+\begin{table}[h!]
+	\centering
+
+	\begin{tabular}{*{3}{l}}
+
+		\verb+\var[y]{x|z}+ & \verb+\loss[y]{x|z}+ & \verb+\cost[y]{x|z}+\\
+		\var[y]{x|z} & \loss[y]{x|z} & \cost[y]{x|z} \\[1em]
+		\verb+\entropy[y]{x|z}+&  \verb+\mi[y]{x|z}+ \\
+		\entropy[y]{x|z} & \mi[y]{x|z}
+	\end{tabular}
+\end{table}
+All comments from \cref{sec:probdists} apply here as well.

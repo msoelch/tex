@@ -1,0 +1,21 @@
+\section{System Setup}
+
+\paragraph{Distribution} 
+Unless you are on a tight disk space budget, install a \TeX\ distribution with lots of included packages like \verb|texlive-full| for Linux.
+
+\paragraph{Compiler} 
+The best default for compiling your document is the \verb|latexmk -pdf| command, which should be included in your \TeX\ distribution.
+It can detect which parts of the infamous multiple build runs, including the bibliography, need to be run based on changes in the files.
+
+\paragraph{Editor}
+Using a versatile plugin or dedicated \TeX\ editor is recommended.
+I personally use \TeX Studio.
+It is good-not-great, so you may find a solution that suits your preferences better.
+I have found its following features useful:
+\begin{itemize}
+	\item Side-by-side display of source and pdf, which are tightly coupled so one can jump from the pdf to the respective source and vice versa.
+	\item Easy setup of compiler and bibliography tool, including support of the aforementioned \verb|latexmk|.
+	\item Auto-completion of commands from used standard libraries as well your references in the document.
+	\item Good integration of the log, jumping to the line that throws the error or warning.
+	\item Seamless handling of multiple source files for a document.
+\end{itemize}

@@ -1,0 +1,19 @@
+\section{Style of this document}
+The default style of this document uses Palantino as the main font via
+
+\begin{Verbatim}[tabsize=4]
+	\usepackage[osf,sc]{mathpazo}{}
+	\linespread{{1.05}}\selectfont
+\end{Verbatim}
+
+with some extra spacing between lines. Moreover, the Euler math font is used:
+
+\begin{Verbatim}[tabsize=4]
+	\verb|\usepackage[euler-digits]{{eulervm}}| 
+\end{Verbatim}
+
+The \verb|amsmath| package is loaded with the \verb|fleqn| for left flush of equations. 
+
+All these changes were taken from the highly recommended \href{https://bitbucket.org/amiede/classicthesis/wiki/Home}{$\rightarrow$\texttt{classicthesis}} package by Andr\'e Miede.
+
+Other recommended nice-to-have packages for convenient and good-looking typewriting are \verb|cleveref| for extremely clever referencing, \verb|nicefrac| for better handling of inline fractions, and \verb|microtype|, which takes care of small typesetting issues that improve the overall document appearance.

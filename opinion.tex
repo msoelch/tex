@@ -1,0 +1,52 @@
+\documentclass{article}
+
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\relax}% Content between section title and page number
+\renewcommand{\cftsecafterpnum}{\hfill\mbox{}}% Content after section page number
+\renewcommand{\cftsubsecleader}{~}% Content between subsection title and page number
+\renewcommand{\cftsubsecafterpnum}{\hfill\mbox{}}% Content after subsection page number}
+\renewcommand{\cftsubsubsecleader}{~}% Content between subsection title and page number
+\renewcommand{\cftsubsubsecafterpnum}{\hfill\mbox{}}% Content after subsection page number}
+
+
+\input{standardheader}
+\usepackage{mlmacros}		% custom commmands, mostly math
+\input{nonpaperheader}
+
+\usepackage{nccmath}  % for demonstration purposes only
+\usepackage{fancyvrb}
+\usepackage{multicol}
+
+\DeclareMathOperator*{\mymin}{min}
+
+
+\title{Opinions and Experiences Writing Scientific Articles in \LaTeX}
+\author{Maximilian Soelch}
+
+\begin{document}
+	
+\maketitle
+
+This document provides what I consider best practices for writing in \LaTeX.
+Many of these are subjective---ignore them at your discretion!
+This guide is biased towards scientific articles, yet many recommendations hold generally.
+To keep this document at a reasonable length, you will find a brief recommendation accompanied with a useful pointer to a more detailed resource.
+If you find any of the recommendations valuable or objectionable, let me know!
+
+\tableofcontents
+\vfill
+\newpage
+
+\input{secs/opinion/goldenrules.tex}
+
+\input{secs/opinion/systemsetup.tex}
+
+\input{secs/opinion/versioncontrol.tex}
+
+\input{secs/opinion/bibliography.tex}
+
+\input{secs/opinion/math.tex}
+
+\input{secs/opinion/misc.tex}
+
+\end{document}

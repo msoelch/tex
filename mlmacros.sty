@@ -1,30 +1,38 @@
 \NeedsTeXFormat{LaTeX2e}%[2015/01/01] % fixed via latexrelease package, see below
 \ProvidesPackage{mlmacros}[2018/06/26 custom frequently used machine learning commands]
 
-\usepackage{todonotes} % define advanced macros based on todonotes
 \usepackage{xparse} % necessary for hacking overloaded commands and iterating overlists
 \usepackage{xspace}
 \usepackage{mleftright} % for nicer spacing before \left in the presence of indices
+\mleftright % redefines \left and \right as \mleft and \mright
 \usepackage{amsfonts} % for \mathbb
 \usepackage{dsfont} % for mathbb style indicator function 1
 \usepackage{soul} % provides \texthl
 \usepackage{xcolor}
 \usepackage{relsize} % required for smaller math subscripts
-\definecolor{customblue}{RGB}{0,101,189}
+\usepackage{bm} % bold math for e.g. Greek symbols
+\usepackage{amsmath}
 
-\newcommand{\eq}[1]{\begin{align*}#1\end{align*}}
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
 
 % Convenient macros with correct spacing
 \DeclareRobustCommand\onedot{\futurelet\@let@token\@onedot}
 \def\@onedot{\ifx\@let@token.\else.\null\fi\xspace}
 
-\def\eg{{e.\,g}\onedot} \def\Eg{{E.\,g}\onedot}
-\def\ie{{i.\,e}\onedot} \def\Ie{{I.\,e}\onedot}
-\def\cf{{c.\,f}\onedot} \def\Cf{{C.\,f}\onedot}
-\def\etc{{etc}\onedot} \def\vs{{vs}\onedot}
-\def\wrt{w.\,r.\,t\onedot} \def\dof{d.\,o.\,f\onedot}
-\def\etal{{et al}\onedot}
+\newcommand{\eg}{{e.\,g}\onedot} 
+\newcommand{\Eg}{{E.\,g}\onedot}
+\newcommand{\ie}{{i.\,e}\onedot} 
+\newcommand{\Ie}{{I.\,e}\onedot}
+\newcommand{\cf}{{cf}\onedot} 
+\newcommand{\Cf}{{Cf}\onedot}
+\newcommand{\etc}{{etc}\onedot} 
+\newcommand{\vs}{{vs}\onedot}
+\newcommand{\wrt}{w.\,r.\,t\onedot} 
+\newcommand{\dof}{d.\,o.\,f\onedot}
+\newcommand{\etal}{{et al}\onedot}
+\newcommand{\NB}{N.\,B\onedot}
+\newcommand{\transpose}{^{\!\top\!}}
+\newcommand{\iid}{i.\,i.\,d\onedot}
 \makeatother
 
 \usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
@@ -32,7 +40,7 @@
 \usepackage{pifont}
 \newcommand{\cmark}{\ding{51}\xspace}%
 \newcommand{\xmark}{\ding{55}\xspace}%
-\newcommand{\super}[1]{^{(#1)}}
+\newcommand{\super}[1]{^{{(}#1{)}}}
 
 % Math macros
 \newcommand{\NN}{\ensuremath{\mathbb{N}}}
@@ -48,15 +56,27 @@
 
 \newcommand{\data}{\mcD}
 
+\NewDocumentCommand{\grad}{e{_^}}{%
+	\mathop{}\!% \mathop for good spacing before \nabla
+	\nabla
+	\IfValueT{#1}{_{\!#1}}% tuck in the subscript
+	\IfValueT{#2}{^{#2}}% possible superscript
+}
+
 % https://tex.stackexchange.com/questions/5502/how-to-get-a-mid-binary-relation-that-grows
 \newcommand{\relmiddle}[1]{\mathrel{}\middle#1\mathrel{}}
 \DeclareDocumentCommand{\midd}{}{\relmiddle|}
 
-\DeclareDocumentCommand{\shallbe}{}{\;{\overset{!}=}\;}
+\DeclareDocumentCommand{\shallbe}{}{\mathbin{\overset{!}=}}
 \DeclareDocumentCommand{\dint}{}{\,\mathrm d}
 \DeclareDocumentCommand{\abs}{m}{{\left\lvert#1\right\rvert}}
 \DeclareDocumentCommand{\set}{m}{{\left\{#1\right\}}}
 \DeclareDocumentCommand{\interval}{m}{{\left[#1\right]}}
+\DeclareDocumentCommand{\divergence}{somm}{\ensuremath{\operatorname{D}
+		\IfBooleanTF{#1}
+		{\IfNoValueOrEmptyTF{#2}{}{_{#2}}(#3 \mid\mid #4)}
+		{\IfNoValueOrEmptyTF{#2}{}{_{#2}}\mleft(#3\midd\midd#4\mright)}
+}}
 \DeclareDocumentCommand{\kl}{smm}{\ensuremath{\operatorname{KL}
 	\IfBooleanTF{#1}
 		{(#2 \mid\mid #3)}
@@ -115,11 +135,20 @@
 \DeclareDocumentCommand\Tsm{G{}}{\tsub{1}{\Tminus\IfNoValueOrEmptyTF{#1}{1}{#1}}}
 \DeclareDocumentCommand\Tsp{G{}}{\tsub{1}{\Tplus\IfNoValueOrEmptyTF{#1}{1}{#1}}}
 
+
+\newcommand\mlbold[1]{%
+	\ifcat\noexpand#1\relax % check if the argument is a control sequence
+	\bm{#1}% probably Greek
+	\else
+	\mathbf{#1}% single character
+	\fi
+}
+
 % add macros for time indices and include bold versions for vectors/matrices
 \newcommand{\varmacros}[2]{
 	%base
 	\expandafter\def\csname #1\endcsname{\ensuremath{#2}}
-	\expandafter\def\csname b#1\endcsname{\ensuremath{\boldsymbol{\mathbf{\csname #1\endcsname}}}}
+	\expandafter\def\csname b#1\endcsname{\ensuremath{\mlbold{#2}}}
 	% seq
 	\expandafter\def\csname #1seq\endcsname{\ensuremath{\overline{\csname #1\endcsname}}}
 	\expandafter\def\csname b#1seq\endcsname{\ensuremath{\overline{\csname b#1\endcsname}}}
@@ -168,38 +197,38 @@
 \newcommand{\splitatbar}[1]{
 	\protected@edef\split@temp{#1}%
 	\saveexpandmode
-	\expandarg\StrCut{\split@temp}{|}{\argument}{\condition}%
+	\expandarg\StrCut{\split@temp}{|}{\thisarg}{\thiscond}%
 	\restoreexpandmode
 }
 \makeatother
 
-\DeclareDocumentCommand{\overloadedfunction}{smogmmg}{
-	\IfNoValueOrEmptyTF{#3}{#2}{#2_{#3}}
-	\IfNoValueOrEmptyTF{#4}
+\DeclareDocumentCommand{\overloadedfunction}{smoogmmg}{
+	#2\IfNoValueOrEmptyTF{#3}{}{_{#3}}\IfNoValueOrEmptyTF{#4}{}{^{#4}}
+	\IfNoValueOrEmptyTF{#5}
 	{}
 	{	
-		\IfNoValueOrEmptyTF{#7}
+		\IfNoValueOrEmptyTF{#8}
 			{
-				\splitatbar{#4}
+				\splitatbar{#5}
 			}
 			{ % false part is for backward compat
-				\def\argument{#4}
-				\def\condition{#7}
+				\def\thisarg{#5}
+				\def\thiscond{#8}
 			} 
 		\IfBooleanTF{#1}
 		{
-			\ifdefempty{\condition} {#5\argument#6} {#5\argument \mid \condition#6}
+			\ifdefempty{\thiscond} {#6\thisarg#7} {#6\thisarg \mid \thiscond#7}
 		}
 		{
-			\ifdefempty{\condition} {\mleft #5 \argument \mright #6} {\mleft#5 \argument \midd \condition \mright#6}
+			\ifdefempty{\thiscond} {\mleft #6 \thisarg \mright #7} {\mleft#6 \thisarg \midd \thiscond \mright#7}
 		}
 	}
 }
 \newcommand{\MkProbDist}[2]{
-	\expandafter\DeclareDocumentCommand\csname#1\endcsname{soG{}G{}}{\ensuremath{
+	\expandafter\DeclareDocumentCommand\csname#1\endcsname{sooG{}G{}}{\ensuremath{
 			\IfBooleanTF{##1}
-			{\overloadedfunction*{#2}[##2]{##3}{(}{)}{##4}}
-			{\overloadedfunction{#2}[##2]{##3}{(}{)}{##4}}
+			{\overloadedfunction*{#2}[##2][##3]{##4}{(}{)}{##5}}
+			{\overloadedfunction{#2}[##2][##3]{##4}{(}{)}{##5}}
 	}}
 }
 
@@ -259,48 +288,6 @@
 		{\overloadedfunction*{\mathcal C}[#2]{#3}{(}{)}}
 		{\overloadedfunction{\mathcal C}[#2]{#3}{(}{)}}
 }}
-
-% \magic
-% special todo note to mark unscientific reasoning
-\DeclareDocumentCommand{\magic}{G{}}{
-	\texthl{magic}
-	\todo[color=purple!60]{
-		Science > Magic!\vspace{-.7\baselineskip}
-		\IfNoValueOrEmptyTF{#1}{}{
-			\noindent\makebox[\textwidth]{\rule{\textwidth}{0.4pt}}\\
-			#1}
-	}
-}
-\DeclareDocumentCommand{\magically}{G{}}{
-	\texthl{magically}
-	\todo[color=purple!60]{
-		Science > Magic!\vspace{-.7\baselineskip}
-		\IfNoValueOrEmptyTF{#1}{}{
-			\noindent\makebox[\textwidth]{\rule{\textwidth}{0.4pt}}\\
-			#1}
-	}
-}
-
-
-\NewDocumentCommand\mylist{>{\SplitList{,}}m}
-{
-	\begin{itemize}
-		\setlength\itemsep{.01em}
-		\ProcessList {#1} { \insertitem}
-	\end{itemize}
-}
-\newcommand\insertitem[1]{\item #1}
-
-
-\DeclareDocumentCommand{\addref}{G{}}{
-	\todo[color=red!40]{Add reference(s).\vspace{-.7\baselineskip}
-		\IfNoValueOrEmptyTF{#1}{}{
-			\vspace{-.7\baselineskip}
-			\noindent\makebox[\textwidth]{\rule{\textwidth}{0.4pt}}
-			\mylist{#1}
-		}
-	}
-}
 
 
 

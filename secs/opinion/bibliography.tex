@@ -1,0 +1,35 @@
+\section{Bibliography}
+Bibliography is one of the features where {\LaTeX} really shines, but it can be a bit confusing to start.
+To work with bibliographies you need two tools.
+
+The first is a package that defines commands for referencing and the looks of your references and bibliography.
+There are two major contenders: \texttt{natbib} and \texttt{biblatex}.
+
+The second is a bibliography compiler.
+This compiler is the link between your \texttt{tex} and \texttt{bib} files.
+Again, there are two contenders: \texttt{bibtex} and \texttt{biber}.
+
+If there are no constraints, the choice is easy.
+The combination \texttt{biblatex} and \texttt{biber} is the more modern and thus strictly superior combination if you fancy support of, among many other things, UTF encoding and media from this millennium in your bibliography.%
+\footnote{For a more detailed and nuanced take, see \url{https://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib}}
+The only---unfortunately rather common---exception is when your template forces you to use something else, usually \texttt{natbib} and \texttt{bibtex}.
+
+Use \texttt{biblatex} via \verb|\usepackage[...]{biblatex}| and tweak the looks of both your references and your bibliography to your liking via package options.
+For a suggested default, see the provided \texttt{nonpaperheader.tex}.
+A best practice is to \emph{never} use the \verb|\cite| command unless you are writing a macro of your own.
+Instead, use \verb|\textcite| when your reference is part of a sentence or \verb|\parencite| when your reference is in parentheses at the end of a sentence for the most common use cases, and check the docs if you need something else.%
+\footnote{
+	If you have to use \texttt{natbib}, the equivalent commands are \texttt{\textbackslash citet} and \texttt{\textbackslash citep}.
+	Via the \texttt{natbib=true} option of \texttt{biblatex}, you can enable backward compatibility of these commands.
+}
+
+Then there is the actual bibliography.
+I would recommend using a dedicated bibliography tool rather than managing your \verb|.bib| file manually.
+There are many good and some bad options out there but no universally good one.
+I have personally made good experiences with the free, open-source tool Zotero in combination with the add-on Better Bib\TeX\ as well as the browser plugin for Firefox.
+It can conveniently export a \TeX-compatible bibliography file and also keep it updated if new papers are added or the data of a reference change.
+Conversely, Zotero can import a bibliography entry from a Bib\TeX\ entry.
+
+The best source for bibliography \emph{entries} is the dblp computer science bibliography data base (\url{https://dblp.uni-trier.de/}).
+It usually has the cleanest and most consistent data.
+It just struggles with arXiv preprints, for which I have had the best results by using the Zotero browser plugin directly on the arXiv page of the respective paper.

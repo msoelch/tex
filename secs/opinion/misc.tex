@@ -1,0 +1,168 @@
+\section{Miscallenous}
+
+\subsection{References \& Citations}
+
+
+You probably know the \verb|\ref| command to reference a section, equation, figure \etc.
+Use the \texttt{cleveref} package and the \verb|\cref| command as a drop-in replacement.
+It gives you a lot of options to configure, looks good by default, and you can change your mind at any time.
+No more inconsistencies between Figure~5, figure~5, and fig.~5.
+
+
+When you label things that you want to reference, add a tag to the label, \eg, use \verb|\label{sec:introduction}| or \verb|\label{eq:Emc2}|.
+That makes it much easier to see at a glance what it is you are referencing.
+Also, your editor might have auto-completions, and these tags are an easy way to filter.
+
+\subsubsection{Links and URLs}
+The defaults used in most documents for links both to the internet as well as to references within the text are stuck in the previous century.
+Write URLs in the font of your text.%
+\footnote{And here is some correction for nicer URL formatting: \url{https://www.joachim-breitner.de/blog/519-Nicer_URL_formatting_in_LaTeX}}
+Mono-space font for URLs is a relic from times when people were surprised to see them.
+
+
+Switch off those neon boxes!%
+\footnote{And here is how to do that including some alternatives: \url{https://tex.stackexchange.com/questions/823/remove-ugly-borders-around-clickable-cross-references-and-hyperlinks}}
+Their use is very limited, they look horrific, and  worst of all they make reading your text unnecessarily hard.
+I know where I can click, and if I do not, I likely did not want to in the first place.
+
+\subsection{Figures}
+Make your figures as large as necessary, but not larger. 
+Try to keep the overall file size low. 
+This reduces the danger of your reviewer being annoyed by having to work to get your stuff printed because their printer runs out of memory when trying to print your paper.
+I have been this reviewer.
+
+Use vector graphics wherever possible, \ie, use pdf outputs of your matplotlib figures.
+An exception to this rule are plots with lots of elements. 
+This is typically the case when you have scatter plots with $>100$ points. 
+Convert those into png or some fixed format. 
+If you want to keep vector graphic axes and labels, scatter plots also have a keyword argument \verb|rasterized=True| that is a good compromise.
+
+As for the right package and commands, I have had the most consistently good results with the \verb|subfig| package.
+
+
+\subsection{Acronyms}
+Use a package and macros for all acronyms.
+This gives your acronyms consistency, and again it is easy to change your mind later.
+I have made good experiences with the \verb|acronym| package.
+As with many things \LaTeX, it seems superfluous at first.
+Once you have a sizable collection of acronyms to carry over from document to document, it is the much more efficient option.
+
+
+\subsection{Tables}
+Tables are an art in and of itself.
+Arguably, it is one of the more annoying subjects with \TeX.
+Here are some very incomplete, general recommendations to give you a start:
+\begin{itemize}
+	\item Vertical lines as dividers are a sign your layout is incorrect.
+	Use them sparingly, ideally never. 
+	White space is almost always the better option as a separator.
+	\item Align your columns correctly.
+	The alignment is determined by the content, and the column header has the same alignment.
+	Text is left-aligned by default.
+	Numbers are right-aligned by default.
+	\item \textsc{Small Caps} are often, not always, a good default for column headers, the command is \verb|\textsc{Column Title}|.
+	\item Make use of \verb|\toprule|, \verb|\midrule|, and \verb|\bottomrule| from the \verb|booktabs| package; but use them with care also.
+	Consider white space, which you can add with \verb|...\\[1em]| at the end of a table line, where \verb|1em| is the amount of white space you want to add.
+	\item Make sure your table is not overburdened by content. 
+	Choose appropriate font sizes to get enough white space in.
+	Cut insignificant digits.
+	Imply duplicate values by clever grouping and white space instead of printing it in every row.
+	This is not an SQL table, your target audience is human for the time being.
+\end{itemize}
+A recurring pattern here is white space.
+Mastering white space is the key to readable, informative tables.%
+\footnote{If you want to see these principles at work, look at this example: \url{https://github.com/Wookai/paper-tips-and-tricks\#tables}}
+
+\subsection{Numbers}
+Setting numbers in text correctly is not trivial.
+Did you run 50 or $50$ experiments?
+Are you sowing the results in section 5 or $5$?
+Did you run them in 1994 or $1994$?
+
+Once again, consistency is key.
+The distinction that I have settled on is between \emph{text} and \emph{math} numerals.%
+\footnote{It is always a good sign when you can quote Donald Knuth to back your opinion, \cf the last paragraph on page 31: https://tug.org/TUGboat/tb10-1/tb23knut.pdf}
+At times, those notions are a bit ephemeral, but a good rule of thumb is whether you would be likely to assign the number to a variable.
+You ran $N=50$ experiments, hence math mode even though you do not perform math on the number.
+You ran them in 1994 and recorded them in section 5, these numerals are part of the prose.
+
+Do not fall for the but-the-result-is-the-same trap.
+If you want to know why, read the Knuth comment above.
+
+It is often recommended to use the package \verb|siunitx|, but I have little to no experience with it.
+
+\subsection{Footnotes}
+Footnotes are great to add a little information or pointer on the side.
+If you put the footnote at the end of a sentence, put no space behind the full stop.
+If you want to put the footnote on a new line in your source code---for instance, because you adhere to the version control best practices in \cref{sec:versioncontrol}---you need to use a little trick to avoid the space.
+Escape the newline with a comment!
+Put a \texttt{\%} at the end of your line, then start the footnote on the next line.%
+\footnote{
+	This trick of escaping the end of a line can be useful elsewhere to avoid spurious white spaces in your document.
+}
+
+
+\subsection{Quotes}
+Punctuating quotes correctly is a bit annoying.
+Firstly, different languages have wildly different conventions.
+Secondly, \LaTeX\ has many different ways to typeset them.
+The consistently easiest way to deal with this in my book is the \verb|csquotes| package with the \verb|\enquote| command.
+Then it becomes a matter of setting up your preamble, specifically the document language, correctly and everything remains nice and consistent.
+
+
+
+\subsection{Table of Content}
+In your table of content, do not align the page numbers to the right.
+It may look fancy, especially with those filling dots you get by default.
+Form follows function. Help your reader find pages, not sum them.
+
+\subsection{Log}
+When you compile your document, take the logs seriously even when they only produce warnings.
+A document is only ready for publication when it has no warnings that you have not at least googled and understood why you will not fix it.
+
+If you are brave, add \verb|\usepackage[orthodox]{nag}| to your preamble.
+
+\subsubsection{Overfull and Underfull Boxes}
+The most common warning that should be purged completely are overfull or underfull boxes.
+The compiler throws these warnings when it cannot arrange your content with acceptable spacing.
+Often, this means excessive spacing when the box, a line or a page, is underfull or content bleeding into margins when the box is overfull.
+There are many small ways to fix these, manually breaking the line, telling the compiler how a certain word is hyphenated, reordering or rephrasing a sentence, and many more.
+
+If you have trouble finding the culprit, there are tricks to find them.
+For overfull boxes, add the \verb|draft| option to the documentclass options.
+This will add a black marker on the margin next to the overfull box.
+To see where the box ends, it can be useful to display frames with \verb|\usepackage{showframe}|.
+
+Underfull boxes are a little trickier, but with \verb|showframe| and a keen eye for superfluous white space they are usually easier to spot in the document.	
+
+\subsection{Uploading Source Files}
+With the majority of papers uploaded to arXiv these days, it is quite common to share not only your article but also the source code.
+Keeping in mind that the source code on arXiv is made public, it is good practice to purge your source files specifically for upload.
+
+Run the following commands:
+\begin{Verbatim}
+latexpand --empty-comments paper.tex > paper-full.tex
+sed -i '/^\s*%/d' paper-full.tex
+cat -s paper-full.tex | sponge paper-full.tex	
+\end{Verbatim}
+The first line combines your source code distributed across several files back into one big file.
+The other two lines remove all comments and superfluous white space in your source file.
+This way, you do not accidentally publish comments that were not meant for the public eye.
+
+There is a nice python script%
+\footnote{\url{https://github.com/google-research/arxiv-latex-cleaner}}
+that analyzes your source code and removes comments, temporary files etc.
+
+It is particularly good for deleting unused files.
+It also can help you with resizing your images if you have a large paper. 
+It can be a bit too liberal in its compression, so be sure to check the results or deactivate. 
+Either way, it is better to not trust a script with handling your figures.
+
+In any case, be sure to check that this cleaned-up version of your source produces same result.
+
+\subsection{Title Casing}
+
+Be sure to have consistent title casing.
+I personally prefer mixed upper- and lower-case title casing, but there are many alternatives.
+The key, once again, is consistency.
+There are resources to help you: \url{https://capitalizemytitle.com/}

@@ -1,0 +1,73 @@
+\section{Math}
+
+\subsection{The Correct Math Environment}
+There are a number of ways to display equations.
+Without going into the details, use the \verb|equation| environment.
+Using \verb|$$ ... $$| is discouraged, as is \verb|align|.
+If you need the latter, use an \verb|aligned| environment inside the \verb|equation| environment.%
+\footnote{As for the reasons, check out \url{https://tex.stackexchange.com/questions/321/align-vs-equation} and \url{https://tex.stackexchange.com/questions/503/why-is-preferable-to}.}
+
+\subsection{Equation Numbering}
+Number every equation unless you have a good reason not to.
+Not wanting to break the line is often not a good reason, unless you are on a really tight budget with space.
+You may not need to reference it.
+But your co-authors, colleagues, peers, reviewers, or students might.
+That third equation in the right column on page six does not roll of the tongue quite as well as \cref{eq:bad_emc2}.
+
+\subsection{Flushing Equations}
+
+Flush equations left if you have the choice.
+You can most easily achieve this with the \texttt{fleqn} option to the \texttt{amsmath} package.
+
+An equation like
+\begin{equation}
+	E = mc^2
+\end{equation}
+reads better than
+{\setlength{\mathindent}{0cm}\begin{equation}
+	\noindent\hfill E = mc^2\hfill\label{eq:bad_emc2}
+\end{equation}}
+in my opinion, but your tastes may differ.
+
+\subsection{Operations}
+A common trap in setting math is misunderstanding space.
+An easy way to avoid that is to not hardcode certain symbols.
+An example is \verb+|+.
+If you type \verb+$A | B$+, you get $A|B$.
+\LaTeX\ does not understand that the pipe relates the two adjacent symbols.
+What you actually want is the operator: \verb|$A \mid B$| gives you $A \mid B$.
+
+Note how, \eg, \verb|$A + B$|, gives you $A+B$ with correct spacing even without a macro.
+\LaTeX\ invokes the correct spacing for the most common operators like $+$, $-$, $>$ \etc.
+Beyond those, you're on your own.
+
+\subsection{Text in Math Blocks}
+If you write $min$ (\verb|$min$|), you need to define $m$, $i$, and $n$.%
+\footnote{
+	Caveat lector: my document defaults make this less pronounced, more by coincidence than by design.
+	I assure you that in the default default, it just looks ugly.
+}
+The quickest fix is to write \verb|$\min$| for $\min$.
+In cases where the predefined macros do not exist, the quick-and-dirty fix is \verb|$\text{min}$|.
+The correct fix is to understand the semantics and tell \LaTeX\ explicitly, for instance by declaring something an operator with \verb|$\DeclareMathOperator*{\mymin}{min}$| for $\mymin$.
+This looks the same as the \verb|\text| solution, but subsequently gets other spacing right, for instance with indexing:
+\begin{equation}
+	\texttt{\textbackslash text: }\text{min}_x\qquad\text{\vs}\qquad\texttt{\textbackslash mymin: } \mymin_x
+\end{equation}
+The correct way of handling it depends on your downstream needs.
+
+\subsection{Parantheses}
+To automatically scale your paraentheses to an appropriate height, use the \verb|\left| and \verb|\right| commands as in
+\verb|\left(\frac12\right)| for
+\begin{equation}\label{eq:fullstop}
+	\left(\frac12\right).
+\end{equation}
+I have found that there are not too uncommon special cases where this solution adds too much spacing on both sides.
+My default fix is to use the \verb|mleftright| package which provides drop-in replacements \verb|\mleft| and \verb|\mright|, and if you add \verb|\mleftright| in your preamble you can even keep using \verb|\left| and \verb|\right|.
+
+\subsection{Punctuation}
+Equation blocks require punctuation just like text.
+See the full stop in \cref{eq:fullstop}.
+If you have multiple equations, separate them with commas or full stops.
+The rule of thumb is easy:
+read the equation block like prose, and put commas where appropriate.

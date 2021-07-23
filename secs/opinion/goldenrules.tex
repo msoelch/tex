@@ -1,0 +1,39 @@
+\section{Golden Rules}
+
+\paragraph{There is no such thing as too many macros.} 
+Macros can feel like overkill at first.
+After all, you are only writing a note, are you not?
+Then the note turns into a paper.
+There will always be a point where you change your mind with respect to notation.
+And if you do it right, your source code becomes much more readable, particularly math equations.
+
+\paragraph{Space is everything.}
+A lot of what \LaTeX\ does is spacing your content gracefully.
+Gradually grasping the inner workings is key to writing nice documents but also understanding when it fails.
+
+A simple example is the difference between the dot after an acronym as in \etc and the full stop at the end of a sentence.
+The space between sentences is larger than that between words.
+You need to tell \LaTeX\ the dot after \etc is not a full stop.
+Otherwise it looks awkwared, e. g., if you write like this instead of, \eg, like this.
+See the difference?
+
+\paragraph{Avoid hard-coding.}
+
+Avoid hard-coding a certain look of the document, be it via setting specific lengths, positions, font modifications.
+Instead, use macros, packages, commands, variables.
+Leave as much flexibility to the compiler as possible and your document will have a higher chance of looking good.
+
+There will be advanced examples below, here is one for illustration: you want to \emph{emphasize} a word?
+Instead of italics, \verb|\textit|, use \verb|\emph|.
+By default, it will use italics---but you can change your mind! And, while we're at it, \verb|\emph| \textit{changes \emph{behavior} in italics!}
+
+\paragraph{Stackoverflow is your friend.}
+\LaTeX\ has a steep learning curve.
+The key is to learn how to search the right queries.
+There are very few new problems in \LaTeX.
+You'll get the hang of it!
+
+\paragraph{Be consistent.}
+Many of the suggestions in this document are only that---suggestions.
+Whether you choose to adhere to them is often a matter of personal taste.
+If you choose to follow some different standard, the key is to be conscious and consistent.

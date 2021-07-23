@@ -26,6 +26,7 @@ footskip=50pt
 ]
 {geometry}
 
+
 % % % % % % % % % %
 % BIBLIOGRAPY
 % % % % % % % % % %
@@ -51,4 +52,23 @@ footskip=50pt
 ]{biblatex}
 % alternative: \usepackage{natbib}
 
-\addbibresource{example.bib}
+%\addbibresource{example.bib}
+
+% fixing URLs: non-monospace font and proper linebreaks
+\urlstyle{same}
+% https://texwelt.de/fragen/7008/zeilenumbruche-in-bibliografielinks
+\apptocmd{\UrlBreaks}{\do\f\do\m}{}{}
+\setcounter{biburllcpenalty}{9000}% Kleinbuchstaben
+\setcounter{biburlucpenalty}{9000}% Großbuchstaben
+
+%\urlstyle{sf}
+\makeatletter
+% taken from https://www.joachim-breitner.de/blog/519-Nicer_URL_formatting_in_LaTeX
+% Inspired by http://anti.teamidiot.de/nei/2009/09/latex_url_slash_spacingkerning/
+% but slightly less kern and shorter underscore
+\let\UrlSpecialsOld\UrlSpecials
+\def\UrlSpecials{\UrlSpecialsOld\do\/{\Url@slash}\do\_{\Url@underscore}}%
+\def\Url@slash{\@ifnextchar/{\kern-.11em\mathchar47\kern-.2em}%
+	{\kern-.0em\mathchar47\kern-.08em\penalty\UrlBigBreakPenalty}}
+\def\Url@underscore{\nfss@text{\leavevmode \kern.06em\vbox{\hrule\@width.3em}}}
+\makeatother

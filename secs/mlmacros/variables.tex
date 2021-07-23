@@ -1,0 +1,27 @@
+\section{\texttt{\textbackslash variables}}
+Macros can help a great deal to stick with conventions while maintaining readability of the source file. 
+However, with an increasing number of conventions, maintenance of the macros becomes just as hard.
+
+The \verb|\variables| macro eases some of that pain. 
+Call it in the preamble with a list of variables and dynamically creates macros based on this list. 
+For example, the call \verb|\variables{x}| automatically provides the following macros:
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{llllll}
+
+		\verb|\x| & \verb|\xseq| & \verb|\xall| & \verb|\xpast| & \verb|\xfilter| & \verb|\xfuture|\\
+		\x & \xseq & \xall & \xpast & \xfilter & \xfuture\\[1.5em]		
+
+		\verb|\bx| & \verb|\bxseq| & \verb|\bxall| & \verb|\bxpast| & \verb|\bxfilter| & \verb|\bxfuture|\\
+		\bx & \bxseq & \bxall & \bxpast & \bxfilter & \bxfuture
+	\end{tabular}
+\end{table}
+
+It works with more complicated replacements, such as greek letters or other math symbols. 
+Calling \verb|\variables[mean,std]{\mu,\sigma}| provides commands such as \verb|\mean| for $\mean$, \verb|\bmeanseq| for $\bmeanseq$ or \verb|\stdall| for $\stdall$.
+Notice that the list delimiter currently needs to be a comma \emph{without enclosing spaces}.
+
+More complicated macro substitutions currently do not work with \verb|\variables|. However, you can exploit the underlying command \verb|\varmacros| for every pair: \verb|\varmacros{E}{\mathcal{E}}| for commands like \verb|\bE|, which yields $\bE$.
+
+Further automatically created macros can easily be edited and/or extended by adjusting the \verb|mlmacros.sty| file.

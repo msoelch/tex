@@ -1,0 +1,30 @@
+\section{Version Control}\label{sec:versioncontrol}
+It is generally recommended to use version control for your source code.
+Following some rules makes using version control with \TeX\ documents that much smoother:
+
+Put each sentence on its own line in the source code, it makes comparing changes much easier.
+
+Split large documents into multiple files.
+One file per section, integrated into the main document with \verb|\input| or \verb|\include|, is a good rule of thumb.
+That way, changing the order of sections has you change two lines, rather than several hundred insertions and deletions.
+
+Do \emph{not} commit the auxiliary files produced while compiling the document.
+Use, \eg, \verb|.gitignore| templates%
+\footnote{\url{https://www.toptal.com/developers/gitignore}}
+to exclude them.
+
+Do \emph{not} commit the final document.
+This will create very large repositories that hold \emph{every} committed revision.
+To make the latest pdf easily available, use continuous integration.
+With gitlab, it is as easy as adding a file
+\begin{Verbatim}[tabsize=4]
+build_pdf:
+	image: aergus/latex
+script:
+	- latexmk -pdf -cd relative/path/to/paper.tex
+artifacts:
+	paths:
+		- relative/path/to/paper.pdf
+\end{Verbatim}
+as \verb|.gitlab-ci.yml|.
+The final pdf can then be found at \url{<link-to-repo>/-/jobs/artifacts/master/raw/relative/path/to/paper.pdf?job=build_pdf}.

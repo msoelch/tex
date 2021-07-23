@@ -6,12 +6,18 @@
 % % % % % % % % % %
 \usepackage[fleqn]{amsmath}	% fleqn for left alignment of math blocks (as in classicthesis)
 \usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}%[chapter]
+\newtheorem{theorem}{Theorem}%[chapter]
+\newtheorem{corollary}{Corollary}%[chapter]
 
 
 % % % % % % % % % %
 % FLOATS, FIGURAES, AND TABLES
 % % % % % % % % % %
 \usepackage{graphicx} 		% Required for including images
+\graphicspath{{gfx/}}
 \usepackage{caption}
 \captionsetup{font=small} 	% format=hang,
 \usepackage{subfig}
@@ -19,9 +25,14 @@
 \setlength{\extrarowheight}{3pt} % increase table row height
 \usepackage{pbox} 			% for linebreaking in cells
 \usepackage{multicol, multirow}
+\usepackage{makecell}
 \usepackage{tikz}
+\usepackage{tikzsymbols}
 \usetikzlibrary{fit,arrows,shapes}
 \usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{shadows}
+\tikzset{>=latex}
+\tikzset{every picture/.style=thick}
 
 
 % % % % % % % % % %
@@ -33,24 +44,30 @@
 ]{todonotes}
 \usepackage[utf8]{inputenc} % allow utf-8 input
 \usepackage[T1]{fontenc}    % use 8-bit T1 fonts
-\usepackage[english]{babel} % hyphenation, special characters, ...
+%\usepackage[english]{babel} % hyphenation, special characters, ...
 \usepackage{csquotes}		% recommended with babel for quotes
 \usepackage[hidelinks,breaklinks]{hyperref}       % hyperlinks
 \usepackage{cleveref}		% provides \cref for nice in-document refs
 \usepackage{url}            % simple URL typesetting
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{booktabs}
-\usepackage
-[
-activate={true,nocompatibility}, % activate protrusion and expansion
-final,						% enable microtype; use "draft" to disable
-tracking=true,
-kerning=true,
-spacing=true,
-factor=1100,				% add 10% to the protrusion amount (default: 1000)
-stretch=10,					% reduce stretchability (default: 20)
-shrink=10					% reduce shrinkability (default: 20)
-]
-{microtype}
-\microtypecontext{spacing=nonfrench}
+%\usepackage
+%[
+%activate={true,nocompatibility}, % activate protrusion and expansion
+%final,						% enable microtype; use "draft" to disable
+%tracking=true,
+%kerning=true,
+%spacing=true,
+%factor=1100,				% add 10% to the protrusion amount (default: 1000)
+%stretch=10,					% reduce stretchability (default: 20)
+%shrink=10					% reduce shrinkability (default: 20)
+%]
+%{microtype}
+%\microtypecontext{spacing=nonfrench}
 \usepackage{cancel}			% easy cancelling of terms: \cancel{expression}
+\usepackage[shortcuts]{extdash} % use, e.g., \-/ for hyphen within a word to indicate that the word may be broken here
+\usepackage[printonlyused]{acronym}
+\renewcommand{\acffont}[1]{\emph{#1}}
+\renewcommand{\acfsfont}[1]{\normalfont #1}
+\newcommand{\accite}[2]{\acffont{\acl{#1}} (\acsu{#1}; \cite{#2})\xspace}
+\newcommand{\acpcite}[2]{\acffont{\aclp{#1}} (\acsp{#1}\acused{#1}; \cite{#2})\xspace}

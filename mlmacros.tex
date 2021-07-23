@@ -1,0 +1,50 @@
+% example document
+\PassOptionsToPackage{table}{xcolor} % xcolor tends to produce option clashes because it is imported from all sorts of packages. This forces the table option to be inserted everywhere. https://tex.stackexchange.com/a/5375
+\documentclass
+[
+%fontsize=11pt, % Document font size
+%twoside, % Shifts odd pages to the left for easier reading when printed, can be changed to oneside
+%captions=tableheading,
+%index=totoc,
+%hyperref
+]
+{article}
+\input{standardheader}
+\usepackage{mlmacros}		% custom commmands, mostly math
+\input{nonpaperheader}
+
+% % % % % % % % % % % % % % % % % % % %
+% new custom commands go here
+\variables{x,y,A}
+\variables[mean,std]{\mu,\sigma}
+\varmacros{E}{\mathcal{E}}
+
+\probdists{p,q}
+\probdists[policy]{\pi}
+\MkProbDist{P}{\mathbb{P}}
+
+\usepackage{fancyvrb}
+% % % % % % % % % % % % % % % % % % % %
+
+\title{Documentation for \texttt{mlmacros.sty}}
+\author{Maximilian Soelch}
+
+\begin{document}
+\maketitle
+The \verb|mlmacros| package provides convenient and readable macros for commonly used syntax when writing scientific articles about machine learning.
+
+\input{secs/mlmacros/subindexing.tex}
+
+\input{secs/mlmacros/variables.tex}
+
+\input{secs/mlmacros/probdists.tex}
+
+\input{secs/mlmacros/operators.tex}
+
+\input{secs/mlmacros/syntacticsugar.tex}
+
+\input{secs/mlmacros/style.tex}
+
+\input{secs/mlmacros/autocomplete.tex}
+
+\end{document}

@@ -1,0 +1,59 @@
+\section{Syntactic sugar}
+\subsection{Math}
+Some general, commonly used math expressions are provided by short, readable macros:
+\begin{itemize}
+	\item \verb|mathbb| wrappers: \verb|\NN| for \NN, \verb|\RR| for \RR, \verb|\PP| for \PP, \verb|\EE| for \EE.
+	\item \verb|mathcal| wrappers: \verb|\mcX| for \mcX, \verb|\mcU| for \mcU, \verb|\mcZ| for \mcZ, \verb|\mcD| for \mcD.
+	\item \verb|\data| for \data.
+	\item \verb|\ind| for \ind.	
+	\item \verb|\left\right| wrappers:
+		\begin{itemize}
+			\item \verb|\abs{}|: $ \abs{\frac a b }$ 
+			\item \verb|\set{}|: $ \set{\frac ab }$	
+			\item\verb|\interval{}|: $ \interval{\frac ab} $
+		\end{itemize}
+	\item Divergences: \verb|\divergence[a]{b}{c}| for $\divergence[a]{b}{c}$
+	\item Kullback-Leibler divergence: \verb|\kl{p}{q}| for $\kl{p}{q}$. 
+	The parentheses adjust to the height of the arguments unless you use \verb|\kl*|.
+	\item Gaussian/Normal distributions: \verb|\gauss{0,1}| for $\gauss{0, 1}$. The parentheses adjust to the height of the arguments unless \verb|\gauss*| is used. 
+	Can be used for conditionals as well: \verb+\gauss{x | \mu, \sigma}+ gives $\gauss{x | \mu, \sigma}$.
+	\item Integrals: \verb|\dint| for nicer integrals.
+	
+		\verb|\int x \dint x| for $\int x \dint x$ instead of \verb|\int x dx|:$\int x dx$
+	\item Equations that are to be proven: \verb|x \shallbe y| for $x \shallbe y$. 
+	\item Transpositions: \verb|A\transpose| for $A\transpose$ (with minor spacing adjustments compared to $A^\top$).
+	\item Cancelling: use \verb|\cancelto{a}{b}| for $\cancelto{a}{b}$
+	\item Superscripts: use \verb|x\super{i}| for $x\super{i}$
+	\item Gradients: use \verb|\grad\_{\theta}| for $\grad_{\theta}$ for better spacing than $\nabla_\theta$
+\end{itemize}
+\subsection{Abbreviations}
+One of the most cumbersome typesetting issues is the correct spacing after abbreviations.
+The following abbreviations are provided by \verb|mlmacros|:
+\begin{center}
+	\begin{tabular}{lll}
+		\textsc{Abbrev.} & \textsc{Macro} & \textsc{Meaning}\\[.5em]
+		\cf & \verb|\cf| & conferatur; compare\\
+		\dof & \verb|\dof| & degrees of freedom\\
+		\eg, \Eg & \verb|\eg|, \verb|\Eg| & exempli gratia; for instance\\
+		\etal & \verb|\etal| & et alii; and others\\
+		\etc & \verb|\etc| & et cetera\\
+		\ie, \Ie & \verb|\ie|, \verb|\Ie| & id est; that is\\
+		\iid & \verb|\iid| & independent and identically distributed\\
+		\NB & \verb|\NB| & Nota Bene; note well\\
+		\vs & \verb|\vs| & versus\\
+		\wrt & \verb|\wrt| & with respect to
+	\end{tabular}
+\end{center}
+All these macros check for a following dot.
+
+To understand the difference, compare the spacing in
+
+\begin{tabular}{l}
+	\verb|There are examples, e.\ g.\ this, that and the other.|\\
+	There are examples, e. g. this, that and the other.\\
+	\verb|There are examples, \eg this, that and the other.|\\
+	There are examples, \eg this, that and the other.
+\end{tabular}
+
+\subsection{Other}
+For easy use in, \eg, tables: \verb|\xmark| and \verb|\cmark| for \xmark and \cmark.
